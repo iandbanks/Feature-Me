@@ -53,6 +53,8 @@ include_once (plugin_dir_path(__FILE__).'fmcta_pointer.php');
 
 function fm_add_scripts(){
     wp_enqueue_script('jquery');
+    //wp_enqueue_style('featureme',plugin_dir_path(__FILE__).'featureme.css');
+ce
 }
 add_action('wp_enqueue_script','fm_add_scripts');
 
