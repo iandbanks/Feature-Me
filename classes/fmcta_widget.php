@@ -25,7 +25,7 @@ class fmcta_widget extends WP_Widget
     {
         $widget_options = array(
 
-            'classname'   => 'feature-me',
+            'classname' => 'feature-me',
             'description' => 'A powerful widget that allows you to easily create a call to action on your website.',
         );
 
@@ -44,7 +44,7 @@ class fmcta_widget extends WP_Widget
         extract($args, EXTR_SKIP);
 
         //Step 1 - Choose a Landing Page to Link To
-        $fmcta_feature  = ($instance['fmcta_feature']) ? esc_attr(strip_tags($instance['fmcta_feature'])) : "";
+        $fmcta_feature = ($instance['fmcta_feature']) ? esc_attr(strip_tags($instance['fmcta_feature'])) : "";
         $fmcta_landing_type = ($instance['fmcta_landing_type']) ? esc_attr(strip_tags($instance['fmcta_landing_type'])) : "";
 
         $fmcta_type_url = (isset($instance['fmcta_type_url'])) ? esc_attr(strip_tags($instance['fmcta_type_url'])) : "";
@@ -61,16 +61,16 @@ class fmcta_widget extends WP_Widget
         $fmcta_heading_title_type = ($instance['fmcta_heading_title_type']) ? esc_attr(strip_tags($instance['fmcta_heading_title_type'])) : "custom";
         $fmcta_heading_title_content = ($instance['fmcta_heading_title_content']) ? esc_attr(strip_tags($instance['fmcta_heading_title_content'])) : "";
 
-        $fmcta_description_type      = (isset($instance['fmcta_description_type'])) ? esc_attr(strip_tags($instance['fmcta_description_type'])) : "excerpt";
-        $fmcta_description_type_content      = ($instance['fmcta_description_type_content']) ? esc_attr(strip_tags($instance['fmcta_description_type_content'])) : "";
+        $fmcta_description_type = (isset($instance['fmcta_description_type'])) ? esc_attr(strip_tags($instance['fmcta_description_type'])) : "excerpt";
+        $fmcta_description_type_content = ($instance['fmcta_description_type_content']) ? esc_attr(strip_tags($instance['fmcta_description_type_content'])) : "";
 
         //Step 4 - Choose a Button
         $fmcta_button_type = (isset($instance['fmcta_button_type'])) ? esc_attr(strip_tags($instance['fmcta_button_type'])) : "";
         $fmcta_button_image_uri = ($instance['fmcta_button_image_uri']) ? esc_attr(strip_tags($instance['fmcta_button_image_uri'])) : "";
-        $fmcta_button_text = ($instance['fmcta_button_text']) ? esc_attr(strip_tags($instance['fmcta_button_text'])): "";
+        $fmcta_button_text = ($instance['fmcta_button_text']) ? esc_attr(strip_tags($instance['fmcta_button_text'])) : "";
 
         //Advanced
-        $class     = ($instance['class']) ? esc_attr(strip_tags($instance['class'])) : "";
+        $class = ($instance['class']) ? esc_attr(strip_tags($instance['class'])) : "";
         $header_link = ($instance['header_link']) ? esc_attr(strip_tags($instance['header_link'])) : "false";
         $fm_url;
         $useLink; //bool to determine whether or not to use a link
@@ -79,108 +79,110 @@ class fmcta_widget extends WP_Widget
 
         ?>
         <article class="feature-me <?php echo $class; ?>">
-            <?php echo $before_widget;
-            //print_r($instance);
-            $the_feature = new WP_QUERY(array('p' => $fmcta_feature, 'post_type' => array('post', 'page'), 'posts_per_page' => '1'));
+        <?php echo $before_widget;
+        //print_r($instance);
+        $the_feature = new WP_QUERY(array('p' => $fmcta_feature, 'post_type' => array('post', 'page'), 'posts_per_page' => '1'));
 
-            while ($the_feature->have_posts()):$the_feature->the_post();
+        while ($the_feature->have_posts()):$the_feature->the_post();
 
-                /*--CTA Title--*/
+            /*--CTA Title--*/
 
-                switch (true) {
-                    //CTA is using the page/post title
-                    case ($fmcta_heading_title_type == "post"):
+            switch (true) {
+                //CTA is using the page/post title
+                case ($fmcta_heading_title_type == "post"):
 
-                        //Generate a link for header
-                        if ($header_link == "true") {
-                            //Generate default link via permalink
-                            if ($fmcta_landing_type == "default") {
-                                echo $before_title . '<a href="' . get_permalink() . '"\>' . the_title('', '', false) . '</a>' . $after_title;
-                            } //Generate custom link via text fmcta_type_url field
-                            else {
+                    //Generate a link for header
+                    if ($header_link == "true") {
+                        //Generate default link via permalink
+                        if ($fmcta_landing_type == "default") {
+                            echo $before_title . '<a href="' . get_permalink() . '"\>' . the_title('', '', false) . '</a>' . $after_title;
+                        } //Generate custom link via text fmcta_type_url field
+                        else {
 
-                                echo $before_title . '<a href="' . $fmcta_type_url . '">' . $fmcta_heading_title_content . '</a>' . $after_title;
-                            }
-                        } else {
-                            echo $before_title . $fmcta_heading_title_content . $after_title;
+                            echo $before_title . '<a href="' . $fmcta_type_url . '">' . $fmcta_heading_title_content . '</a>' . $after_title;
                         }
-                        break;
+                    } else {
+                        echo $before_title . $fmcta_heading_title_content . $after_title;
+                    }
+                    break;
 
-                    //CTA is using a custom title
-                    case ($fmcta_heading_title_type == "custom"): //Custom Title
+                //CTA is using a custom title
+                case ($fmcta_heading_title_type == "custom"): //Custom Title
 
-                        //Generate a link for Header
-                        if ($header_link == "true") {
-                            //Generate default link via permalink
-                            if ($fmcta_landing_type == "default") {
-                                echo $before_title . '<a href="' . get_permalink() . '"\>' . $fmcta_heading_title_content . '</a>' . $after_title;
-                            } //Generate custom link via text fmcta_type_url field
-                            else {
-                                echo $before_title . '<a href="' . $fmcta_type_url . '">' . $fmcta_heading_title_content . '</a>' . $after_title;
-                            }
-                        } else {
-                            echo $before_title . $fmcta_heading_title_content . $after_title;
+                    //Generate a link for Header
+                    if ($header_link == "true") {
+                        //Generate default link via permalink
+                        if ($fmcta_landing_type == "default") {
+                            echo $before_title . '<a href="' . get_permalink() . '"\>' . $fmcta_heading_title_content . '</a>' . $after_title;
+                        } //Generate custom link via text fmcta_type_url field
+                        else {
+                            echo $before_title . '<a href="' . $fmcta_type_url . '">' . $fmcta_heading_title_content . '</a>' . $after_title;
                         }
-                        break;
+                    } else {
+                        echo $before_title . $fmcta_heading_title_content . $after_title;
+                    }
+                    break;
 
-                    //CTA is not using a title
-                    case ($fmcta_heading_title_type == "none"):
-                        break;
+                //CTA is not using a title
+                case ($fmcta_heading_title_type == "none"):
+                    break;
 
-                    // For some reason if none of the above work, default to
-                    default:
-                        break;
+                // For some reason if none of the above work, default to
+                default:
+                    break;
 
-                }
+            }
 
-                /*--CTA Image--*/
-                
-                if ($fmcta_use_image == 'feature') { ?>
-                    <a href="<?php if ($fmcta_landing_type == "default") {
-                                    the_permalink();
-                                    } else {
-                                        echo $fmcta_type_url;
-                                    } ?>" title="<?php echo $fmcta_heading_title_content; ?>">
-                    <?php the_post_thumbnail($instance->thumb_size, array('class' => 'fmcta_thumb'));
-                 ?></a><?php
-                } else if($fmcta_use_image=="upload"){ ?>
-                    <a href="<?php if ($fmcta_landing_type == "default") {
-                                    the_permalink();
-                                    } else {
-                                        echo $fmcta_type_url;
-                                    } ?>" title="<?php echo $fmcta_heading_title_content; ?>">
-                    <img src="<?php echo $fmcta_image_uri; ?>" alt="<?php echo $fmcta_heading_title_content; ?>" /></a>
-                <?php
-                }
+            /*--CTA Image--*/
 
-
-                /*--CTA Description--*/
-
-                switch ($fmcta_description_type) {
-                    case 'excerpt':
-                        the_excerpt();
-                        break;
-                    case 'custom':
-                        echo "<p>" . $fmcta_description_type_content . "</p>";
-                        break;
-                    case 'none':
-                        break;
-                }
-
-                /*--CTA Button--*/
+            if ($fmcta_use_image == 'feature') {
+                ?>
+            <a href="<?php if ($fmcta_landing_type == "default") {
+                the_permalink();
+            } else {
+                echo $fmcta_type_url;
+            } ?>" title="<?php echo $fmcta_heading_title_content; ?>">
+                <?php the_post_thumbnail($instance->thumb_size, array('class' => 'fmcta_thumb'));
+                ?></a><?php
+            } else if ($fmcta_use_image == "upload") {
                 ?>
                 <a href="<?php if ($fmcta_landing_type == "default") {
-                        the_permalink();
-                    } else {
-                        echo $fmcta_type_url;
-                    }
-                    echo '"';
-                    echo ($fmcta_button_type =="upload")? '>': 'class="feature-me-link fmBtn">';
-                    echo ($fmcta_button_type =="upload")?'<img src="'.$fmcta_button_image_uri.'" />':$fmcta_button_text; ?></a>
+                    the_permalink();
+                } else {
+                    echo $fmcta_type_url;
+                } ?>" title="<?php echo $fmcta_heading_title_content; ?>">
+                    <img src="<?php echo $fmcta_image_uri; ?>" alt="<?php echo $fmcta_heading_title_content; ?>"/></a>
+            <?php
+            }
+
+
+            /*--CTA Description--*/
+
+            switch ($fmcta_description_type) {
+                case 'excerpt':
+                    the_excerpt();
+                    break;
+                case 'custom':
+                    echo "<p>" . $fmcta_description_type_content . "</p>";
+                    break;
+                case 'none':
+                    break;
+            }
+
+            /*--CTA Button--*/
+            ?>
+            <a href="<?php if ($fmcta_landing_type == "default") {
+                the_permalink();
+            } else {
+                echo $fmcta_type_url;
+            }
+            echo '"';
+            echo ($fmcta_button_type == "upload") ? '>' : 'class="feature-me-link fmBtn">';
+            echo ($fmcta_button_type == "upload") ? '<img src="' . $fmcta_button_image_uri . '" />' : $fmcta_button_text; ?></a>
 
         <?php
 
-            endwhile;
+        endwhile;
 
         wp_reset_query();
 
@@ -221,18 +223,28 @@ class fmcta_widget extends WP_Widget
 
             <h4 class="title fm-option-title fm-option-1">
                 <span class="fm-arrow">&#x25bc;</span> Step 1: Choose a Landing Page</h4>
+
             <div class="fm-step-1-options">
                 <p>
-                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_landing_type') ?>" class="<?php echo $this->get_field_id('fmcta_landing_type') ?>" value="default" id="<?php echo $this->get_field_id('fmcta_landing_type') ?>_1"
+                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_landing_type') ?>"
+                           class="<?php echo $this->get_field_id('fmcta_landing_type') ?>" value="default"
+                           id="<?php echo $this->get_field_id('fmcta_landing_type') ?>_1"
                         <?php
-                        if ($instance['fmcta_landing_type'] == "default" || $instance['fmcta_landing_type']=="") { echo 'checked="checked"'; } ?> /><!--/fm_landing_1-->
+                        if ($instance['fmcta_landing_type'] == "default" || $instance['fmcta_landing_type'] == "") {
+                            echo 'checked="checked"';
+                        } ?> /><!--/fm_landing_1-->
 
-                    <label for="<?php echo $this->get_field_id('fmcta_landing_type');?>_1">Page/Post on this Website</label></p>
+                    <label for="<?php echo $this->get_field_id('fmcta_landing_type'); ?>_1">Page/Post on this
+                        Website</label></p>
 
                 <p>
-                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_landing_type') ?>" class="<?php echo $this->get_field_id('fmcta_landing_type') ?>" value="external" id="<?php echo $this->get_field_id('fmcta_landing_type') ?>_2"
+                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_landing_type') ?>"
+                           class="<?php echo $this->get_field_id('fmcta_landing_type') ?>" value="external"
+                           id="<?php echo $this->get_field_id('fmcta_landing_type') ?>_2"
                         <?php
-                        if ($instance['fmcta_landing_type'] == "external") { echo 'checked="checked"'; }  ?> /><!--/fm_landing_2-->
+                        if ($instance['fmcta_landing_type'] == "external") {
+                            echo 'checked="checked"';
+                        }  ?> /><!--/fm_landing_2-->
                     <label for="<?php echo $this->get_field_id('fmcta_landing_type') ?>_2">External Website</label></p>
 
                 <p><input type="text" name="<?php echo $this->get_field_name('fmcta_type_url'); ?>"
@@ -244,7 +256,8 @@ class fmcta_widget extends WP_Widget
 
 
                 <p class="<?php echo $this->get_field_id('fmcta_feature') ?>">
-                    <label for="<?php echo $this->get_field_id('fmcta_feature'); ?>"><strong class="description">Select a Page or Post</strong><br/></label>
+                    <label for="<?php echo $this->get_field_id('fmcta_feature'); ?>"><strong class="description">Select
+                            a Page or Post</strong><br/></label>
                     <select name="<?php echo $this->get_field_name('fmcta_feature'); ?>" class="feature-me-select"
                             style="width:100%;" id="<?php echo $this->get_field_id('fmcta_feature') ?>">
 
@@ -305,42 +318,52 @@ class fmcta_widget extends WP_Widget
             </h4>
 
             <div class="fm-step-2-options">
-                <p class="description" style="margin-top:15px; padding:0;">What image do you want to use in this Call To Action?</p>
+                <p class="description" style="margin-top:15px; padding:0;">What image do you want to use in this Call To
+                    Action?</p>
+
                 <p>
-                     <span class="<?php echo $this->get_field_id('fmcta_use_image'); ?>_label"><input type="radio" id="<?php echo $this->get_field_id('fmcta_use_image'); ?>_1" class="<?php echo $this->get_field_id('fmcta_use_image'); ?>"
-                          name="<?php echo $this->get_field_name('fmcta_use_image'); ?>"
-                          value="upload" <?php if ($instance['fmcta_use_image'] == "upload") { ?> checked="checked" <?php } ?>  />
+                     <span class="<?php echo $this->get_field_id('fmcta_use_image'); ?>_label"><input type="radio"
+                                                                                                      id="<?php echo $this->get_field_id('fmcta_use_image'); ?>_1"
+                                                                                                      class="<?php echo $this->get_field_id('fmcta_use_image'); ?>"
+                                                                                                      name="<?php echo $this->get_field_name('fmcta_use_image'); ?>"
+                                                                                                      value="upload" <?php if ($instance['fmcta_use_image'] == "upload") { ?> checked="checked" <?php } ?>  />
                      </span>
                     <label
-                        for="<?php echo $this->get_field_id('fmcta_use_image'); ?>_1">Upload an image<small> (recommended)</small>
+                        for="<?php echo $this->get_field_id('fmcta_use_image'); ?>_1">Upload an image
+                        <small> (recommended)</small>
                     </label>
 
-                    <span class="<?php echo $this->get_field_id('fmcta_use_image'); ?>_label"><br />
+                    <span class="<?php echo $this->get_field_id('fmcta_use_image'); ?>_label"><br/>
 
-                    <input type="radio" id="<?php echo $this->get_field_id('fmcta_use_image'); ?>_2" class="<?php echo $this->get_field_id('fmcta_use_image'); ?>"
-                                 name="<?php echo $this->get_field_name('fmcta_use_image'); ?>"
-                                 value="feature" <?php if ($instance['fmcta_use_image'] == 'feature') { ?>
+                    <input type="radio" id="<?php echo $this->get_field_id('fmcta_use_image'); ?>_2"
+                           class="<?php echo $this->get_field_id('fmcta_use_image'); ?>"
+                           name="<?php echo $this->get_field_name('fmcta_use_image'); ?>"
+                           value="feature" <?php if ($instance['fmcta_use_image'] == 'feature') { ?>
                         checked="checked" <?php } ?>  />
                     <label
-                        for="<?php echo $this->get_field_id('fmcta_use_image'); ?>_2"  >Use Page/Post Featured Image</label>
+                        for="<?php echo $this->get_field_id('fmcta_use_image'); ?>_2">Use Page/Post Featured
+                        Image</label>
                     </span>
                      <span class="<?php echo $this->get_field_id('fmcta_use_image'); ?>_label">
-                    <br />
-                    <input type="radio" id="<?php echo $this->get_field_id('fmcta_use_image'); ?>_3" class="<?php echo $this->get_field_id('fmcta_use_image'); ?>"
+                    <br/>
+                    <input type="radio" id="<?php echo $this->get_field_id('fmcta_use_image'); ?>_3"
+                           class="<?php echo $this->get_field_id('fmcta_use_image'); ?>"
                            name="<?php echo $this->get_field_name('fmcta_use_image'); ?>"
                            value="none" <?php if ($instance['fmcta_use_image'] == 'none') { ?> checked="checked"
                     <?php } ?>  />
                          </span>
                     <label
-                        for="<?php echo $this->get_field_id('fmcta_use_image'); ?>_3" >Off</label>
+                        for="<?php echo $this->get_field_id('fmcta_use_image'); ?>_3">Off</label>
                 </p>
                 <p class="fmcta_image_uploader <?php echo $this->get_field_id('fmcta_image_uploader'); ?>">
-                    <input type="text" name="<?php echo $this->get_field_name('fmcta_image_uri'); ?>" id="<?php echo $this->get_field_id('fmcta_image_uri') ?>" class="<?php echo $this->get_field_id('fmcta_image_uri') ?> fmcta_image_uri"
+                    <input type="text" name="<?php echo $this->get_field_name('fmcta_image_uri'); ?>"
+                           id="<?php echo $this->get_field_id('fmcta_image_uri') ?>"
+                           class="<?php echo $this->get_field_id('fmcta_image_uri') ?> fmcta_image_uri"
                            value="<?php echo $instance['fmcta_image_uri'] ?>" placeholder="Paste URI or Click &rarr;"/>
                     <input class="button fmcta_upload <?php echo $this->get_field_id('fmcta_upload'); ?>"
-                           name="<?php echo $this->get_field_name('fmcta_upload'); ?>" id="<?php echo $this->get_field_id('fmcta_upload') ?>" value="Upload" />
+                           name="<?php echo $this->get_field_name('fmcta_upload'); ?>"
+                           id="<?php echo $this->get_field_id('fmcta_upload') ?>" value="Upload"/>
                 </p>
-
 
 
                 <!--<div class="<?php echo $this->get_field_id('image_preview') ?>"><?php echo get_the_post_thumbnail($instance['fmcta_feature'], array(150, 226)); ?> </div>
@@ -356,31 +379,39 @@ class fmcta_widget extends WP_Widget
 
         <div class="fm-step-3">
 
-            <h4 class="title fm-option-title fm-option-3"><span class="fm-arrow">&#x25bc;</span> Step 3: Customize Your Content
+            <h4 class="title fm-option-title fm-option-3"><span class="fm-arrow">&#x25bc;</span> Step 3: Customize Your
+                Content
             </h4>
 
             <div class="fm-step-3-options">
                 <h4 class="title">CTA Title</h4>
+
                 <p><!--Custom-->
                     <span class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_label">
-                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_type'); ?>" value="custom"
+                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_type'); ?>"
+                           value="custom"
                            class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>"
                            id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_1" <?php if ($instance['fmcta_heading_title_type'] == "custom" || $instance['fmcta_heading_title_type'] == "") { ?> checked="checked" <?php } ?>  />
 
-                    <label for="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_1">Custom Title <small>Recommended</small></label></span>
+                    <label for="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_1">Custom Title
+                        <small>Recommended</small>
+                    </label></span>
                     <!--/Custom Title-->
                     <span class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_label">
                     <br/>
                     <!--Page/Post Title-->
-                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_type'); ?>" value="post"
-                          class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>"
-                          id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_2" <?php if ($instance['fmcta_heading_title_type'] == "post") { ?> checked="checked" <?php } ?>  />
-                    <label for="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_2">Post/Page Title</label>
+                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_type'); ?>"
+                           value="post"
+                           class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>"
+                           id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_2" <?php if ($instance['fmcta_heading_title_type'] == "post") { ?> checked="checked" <?php } ?>  />
+                    <label for="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_2">Post/Page
+                        Title</label>
                         </span>
                     <span class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_label">
-                    <br />
+                    <br/>
                     <!--No Title-->
-                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_type'); ?>" value="none"
+                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_type'); ?>"
+                           value="none"
                            class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>"
                            id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_3" <?php if ($instance['fmcta_heading_title_type'] == "none") { ?> checked="checked" <?php } ?>  />
                     <label for="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_3">Hide Title</label>
@@ -393,7 +424,8 @@ class fmcta_widget extends WP_Widget
                     <p><input type="text" placeholder="Enter an Attention Grabbing title!" class="<?php echo
                         $this->get_field_id('fmcta_heading_title_content'); ?>"
                               name="<?php echo $this->get_field_name('fmcta_heading_title_content'); ?>"
-                              value="<?php echo esc_attr($instance['fmcta_heading_title_content']); ?>" style="width:100%;"/>
+                              value="<?php echo esc_attr($instance['fmcta_heading_title_content']); ?>"
+                              style="width:100%;"/>
                     </p>
                 </div>
                 <!--/Custom Title Field-->
@@ -443,87 +475,106 @@ class fmcta_widget extends WP_Widget
                     <p><textarea id="<?php echo $this->get_field_id('fmcta_description_type_content'); ?>"
                                  name="<?php echo $this->get_field_name('fmcta_description_type_content'); ?>"
                                  style="width:100%;"
-                                 placeholder="Describe in a couple words how this brings value to your users."><?php echo ($instance['fmcta_description_type_content']=='')? "":esc_attr($instance['fmcta_description_type_content']); ?></textarea></p>
+                                 placeholder="Describe in a couple words how this brings value to your users."><?php echo ($instance['fmcta_description_type_content'] == '') ? "" : esc_attr($instance['fmcta_description_type_content']); ?></textarea>
+                    </p>
                 </div>
             </div>
             <!--/.fm-step-3-options-->
         </div>
         <!--/.fm-step-3-->
         <?php
-           /**********Step 3**********/
+        /**********Step 3**********/
         ?>
         <!--STEP 4 - Choose a Button -->
         <div class="fm-step-4">
             <h4 class="title fm-option-title fm-option-4"><span class="fm-arrow">&#x25bc;</span> Step 4:
                 Choose a Button</h4>
+
             <div class="fm-step-4-options">
                 <h4 class="title">CTA Button Title</h4>
                 <!--Link Title Options-->
 
                 <p><input type="text" name="<?php echo $this->get_field_name('fmcta_button_text'); ?>"
                           id="<?php echo $this->get_field_id('fmcta_button_text'); ?>"
-                          value="<?php echo esc_attr($instance['fmcta_button_text']); ?>" placeholder="Read More!, Act Now!"
+                          value="<?php echo esc_attr($instance['fmcta_button_text']); ?>"
+                          placeholder="Read More!, Act Now!"
                           style="width:100%;"/></p>
                 <!--/Link Title Options-->
 
                 <h4 class="title">Choose a Button</h4>
+
                 <p>
                     <input type="radio" name="<?php echo $this->get_field_name('fmcta_button_type'); ?>" value="none"
                            id="<?php echo $this->get_field_id('fmcta_button_type'); ?>_0"
                            class="<?php echo $this->get_field_id('fmcta_button_type'); ?>"
-                        <?php if($instance['fmcta_button_type']== "none") {echo 'checked = "checked"';} ?>  />
-                    <label for="<?php echo $this->get_field_id('fmcta_button_type'); ?>_0">None <small>Useful for image-only CTA's!</small></label>
+                        <?php if ($instance['fmcta_button_type'] == "none") {
+                            echo 'checked = "checked"';
+                        } ?>  />
+                    <label for="<?php echo $this->get_field_id('fmcta_button_type'); ?>_0">None
+                        <small>Useful for image-only CTA's!</small>
+                    </label>
                 </p>
                 <p>
                     <input type="radio" name="<?php echo $this->get_field_name('fmcta_button_type'); ?>" value="upload"
                            id="<?php echo $this->get_field_id('fmcta_button_type'); ?>_1"
                            class="<?php echo $this->get_field_id('fmcta_button_type'); ?>"
-                        <?php if($instance['fmcta_button_type']== "upload") {echo 'checked = "checked"';} ?>  />
+                        <?php if ($instance['fmcta_button_type'] == "upload") {
+                            echo 'checked = "checked"';
+                        } ?>  />
                     <label for="<?php echo $this->get_field_id('fmcta_button_type'); ?>_1">Upload a Button Image</label>
 
-                    <div class="fmcta_button_uploader <?php echo $this->get_field_id('fmcta_button_uploader'); ?>">
-                        <input type="text" name="<?php echo $this->get_field_name('fmcta_button_image_uri'); ?>" id="<?php echo $this->get_field_id('fmcta_button_image_uri') ?>"
-                               class="<?php echo $this->get_field_id('fmcta_button_image_uri') ?> fmcta_button_image_uri"
-                               value="<?php echo $instance['fmcta_button_image_uri'] ?>" placeholder="Paste URI or Click &rarr;"/>
-                        <input class="button fmcta_upload <?php echo $this->get_field_id('fmcta_button_upload'); ?>"
-                               name="<?php echo $this->get_field_name('fmcta_button_upload'); ?>" id="<?php echo $this->get_field_id('fmcta_button_upload') ?>" value="Upload" />
-                    </div>
+                <div class="fmcta_button_uploader <?php echo $this->get_field_id('fmcta_button_uploader'); ?>">
+                    <input type="text" name="<?php echo $this->get_field_name('fmcta_button_image_uri'); ?>"
+                           id="<?php echo $this->get_field_id('fmcta_button_image_uri') ?>"
+                           class="<?php echo $this->get_field_id('fmcta_button_image_uri') ?> fmcta_button_image_uri"
+                           value="<?php echo $instance['fmcta_button_image_uri'] ?>"
+                           placeholder="Paste URI or Click &rarr;"/>
+                    <input class="button fmcta_upload <?php echo $this->get_field_id('fmcta_button_upload'); ?>"
+                           name="<?php echo $this->get_field_name('fmcta_button_upload'); ?>"
+                           id="<?php echo $this->get_field_id('fmcta_button_upload') ?>" value="Upload"/>
+                </div>
                 </p>
 
-            </div><!--/.fm-step-4-options-->
+            </div>
+            <!--/.fm-step-4-options-->
         </div><!--/.fm-step-4-->
 
-        <!--STEP Advanced-->
+              <!--STEP Advanced-->
         <div class="fm-step-advanced">
-        <!--Link Heading-->
+            <!--Link Heading-->
             <h4 class="title fm-option-title fm-option-advanced"><span class="fm-arrow">&#x25bc;</span> Advanced</h4>
+
             <div class="fm-step-advanced-options">
+                <p></p>
 
-        <p><input type="radio" name="<?php echo $this->get_field_name('header_link'); ?>" value="true"
-                  class="<?php echo $this->get_field_id('header_link'); ?>"
-                  id="<?php echo $this->get_field_id('header_link'); ?>_1" <?php if ($instance['header_link'] == "true" || $instance['header_link'] == "") { ?> checked="checked" <?php } ?>  />
-            <label for="<?php echo $this->get_field_id('header_link'); ?>_1">Yes</label>
-            &nbsp;
-            <input type="radio" name="<?php echo $this->get_field_name('header_link'); ?>" value="false"
-                   class="<?php echo $this->get_field_id('header_link'); ?>"
-                   id="<?php echo $this->get_field_id('header_link'); ?>_2" <?php if ($instance['header_link'] == "false") { ?> checked="checked" <?php } ?>  />
-            <label for="<?php echo $this->get_field_id('header_link'); ?>_2">No</label></p>
-        <!--/Link Heading-->
 
-        <div class="divide">&nbsp;</div>
+                <p>Link the Title? <br/>
+                    <input type="radio" name="<?php echo $this->get_field_name('header_link'); ?>" value="true"
+                           class="<?php echo $this->get_field_id('header_link'); ?>"
+                           id="<?php echo $this->get_field_id('header_link'); ?>_1" <?php if ($instance['header_link'] == "true" || $instance['header_link'] == "") { ?> checked="checked" <?php } ?>  />
+                    <label for="<?php echo $this->get_field_id('header_link'); ?>_1">Yes</label>
+                    &nbsp;
+                    <input type="radio" name="<?php echo $this->get_field_name('header_link'); ?>" value="false"
+                           class="<?php echo $this->get_field_id('header_link'); ?>"
+                           id="<?php echo $this->get_field_id('header_link'); ?>_2" <?php if ($instance['header_link'] == "false") { ?> checked="checked" <?php } ?>  />
+                    <label for="<?php echo $this->get_field_id('header_link'); ?>_2">No</label></p>
+                <!--/Link Heading-->
 
-        <h3 class="title">Advanced</h3>
+                <div class="divide">&nbsp;</div>
 
-        <p><label for="<?php echo $this->get_field_id('class'); ?>"><strong>Custom CSS class:</strong><br/>
-                <small>You can add a CSS class to add custom styling</small>
-            </label>
-            <input type="text" name="<?php echo $this->get_field_name('class'); ?>"
-                   value="<?php echo esc_attr($instance['class']); ?>" style="width:100%;"/>
-        </p>
+                <h3 class="title">Advanced</h3>
 
-        <div class="divide">&nbsp;</div>
+                <p><label for="<?php echo $this->get_field_id('class'); ?>"><strong>Custom CSS class:</strong><br/>
+                        <small>You can add a CSS class to add custom styling</small>
+                    </label>
+                    <input type="text" name="<?php echo $this->get_field_name('class'); ?>"
+                           value="<?php echo esc_attr($instance['class']); ?>" style="width:100%;"/>
+                </p>
 
-            </div><!--/.fm-step-advanced-options-->
+                <div class="divide">&nbsp;</div>
+
+            </div>
+            <!--/.fm-step-advanced-options-->
         </div><!--/.fm-step-advanced-->
 
 
@@ -552,7 +603,7 @@ class fmcta_widget extends WP_Widget
      */
     private function generateCSS()
     {
-        $id  = $this->id;
+        $id = $this->id;
         $css = <<<EOD
             <style>
 			.divide{
