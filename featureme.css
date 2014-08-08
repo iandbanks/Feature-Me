@@ -16,7 +16,7 @@
  */
 
 
-.feature-me a.fmBtn{
+.feature-me a.fmcta-button{
     background: #d9aa34;
     background-image: -webkit-linear-gradient(top, #d9aa34, #c2952b);
     background-image: -moz-linear-gradient(top, #d9aa34, #c2952b);
@@ -34,7 +34,7 @@
     text-align: center;
 }
 
-.feature-me a.fmBtn:hover {
+.feature-me a.fmcta-button:hover {
     background: #d9aa34;
     background-image: -webkit-linear-gradient(top, #d9aa34, #a67d1e);
     background-image: -moz-linear-gradient(top, #d9aa34, #a67d1e);
@@ -43,7 +43,7 @@
     background-image: linear-gradient(to bottom, #d9aa34, #a67d1e);
     text-decoration: none;
 }
-.feature-me a.fmBtn:visited,
-.feature-me a.fmBtn:link{
+.feature-me a.fmcta-button:visited,
+.feature-me a.fmcta-button:link{
     color:#ffffff !important;
 }
