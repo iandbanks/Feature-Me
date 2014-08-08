@@ -34,7 +34,7 @@ class fmcta_widget extends WP_Widget
 
     /**
      * 1.1 - widget
-     * Output to the front-end widget area
+     * Outputs content to display on the website.
      *
      * @param array $args
      * @param array $instance
@@ -193,7 +193,7 @@ class fmcta_widget extends WP_Widget
 
     /**
      * 1.2 - form
-     * Admin form code
+     * Form to display in the Widget Admin
      *
      * @param array $instance
      *
