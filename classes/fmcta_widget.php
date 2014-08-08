@@ -72,6 +72,7 @@ class fmcta_widget extends WP_Widget
         //Advanced
         $class = ($instance['class']) ? esc_attr(strip_tags($instance['class'])) : "";
         $header_link = ($instance['header_link']) ? esc_attr(strip_tags($instance['header_link'])) : "false";
+        $fmcta_image_placement = ($instance['fmcta_image_placement'] ) ? esc_attr(strip_tags( $instance['fmcta_image_placement'] ) ) : "above";
         $fm_url;
         $useLink; //bool to determine whether or not to use a link
 
@@ -545,7 +546,22 @@ class fmcta_widget extends WP_Widget
             <h4 class="title fm-option-title fm-option-advanced"><span class="fm-arrow">&#x25bc;</span> Advanced</h4>
 
             <div class="fm-step-advanced-options">
-                <p></p>
+                <p>Title / Image Placement <br/>
+
+                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_image_placement'); ?>" value="above"
+                           id="<?php echo $this->get_field_id('fmcta_image_placement'); ?>_1"
+                        <?php if ($instance['fmcta_image_placement'] == "above" || $instance['fmcta_image_placement'] == "") { ?> checked="checked" <?php } ?>
+                        />
+                    <label for="<?php echo $this->get_field_id('fmcta_image_placement'); ?>_1"><em>Above</em> title</label>
+                    &nbsp;
+                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_image_placement'); ?>" value="below"
+                           id="<?php echo $this->get_field_id('fmcta_image_placement'); ?>_2"
+                        <?php if ($instance['fmcta_image_placement'] == "below" ) { ?> checked="checked" <?php } ?>
+                        />
+                    <label for="<?php echo $this->get_field_id('fmcta_image_placement'); ?>_2"><em>Below</em> title</label>
+
+
+                </p>
 
 
                 <p>Link the Title? <br/>
@@ -664,6 +680,10 @@ class fmcta_widget extends WP_Widget
 EOD;
 
         return $css;
+    }
+
+    public function fmcta_render_title(){
+
     }
 
 } //featureme
