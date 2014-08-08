@@ -86,9 +86,14 @@ class fmcta_widget extends WP_Widget
 
         while ($the_feature->have_posts()):$the_feature->the_post();
 
+
+            /**
+             * @todo Remove this commented out code once testing has proven new title method works appropriately.
+             */
+
             /*--CTA Title--*/
 
-            switch (true) {
+            /*switch (true) {
                 //CTA is using the page/post title
                 case ($fmcta_heading_title_type == "post"):
 
@@ -132,7 +137,11 @@ class fmcta_widget extends WP_Widget
                 default:
                     break;
 
-            }
+            }*/
+
+
+            //Render the title
+            echo $this->fmcta_render_title($instance, $before_title, $after_title);
 
             /*--CTA Image--*/
 
@@ -682,8 +691,58 @@ EOD;
         return $css;
     }
 
-    public function fmcta_render_title(){
+    /**
+     * Logic for the Title
+     */
+    public function fmcta_render_title($instance, $before_title, $after_title){
 
+        /*--CTA Title--*/
+
+        switch (true) {
+            //CTA is using the page/post title
+            case ($instance['fmcta_heading_title_type'] == "post"):
+
+                //Generate a link for header
+                if ($instance['header_link'] == "true") {
+                    //Generate default link via permalink
+                    if ($instance['fmcta_landing_type'] == "default") {
+                        echo $before_title . '<a href="' . get_permalink() . '"\>' . the_title('', '', false) . '</a>' . $after_title;
+                    } //Generate custom link via text fmcta_type_url field
+                    else {
+
+                        echo $before_title . '<a href="' . $instance['fmcta_type_url'] . '">' . $instance['fmcta_heading_title_content'] . '</a>' . $after_title;
+                    }
+                } else {
+                    echo $before_title . $instance['fmcta_heading_title_content'] . $after_title;
+                }
+                break;
+
+            //CTA is using a custom title
+            case ($instance['fmcta_heading_title_type'] == "custom"): //Custom Title
+
+                //Generate a link for Header
+                if ($instance['header_link'] == "true") {
+                    //Generate default link via permalink
+                    if ($instance['fmcta_landing_type'] == "default") {
+                        echo $before_title . '<a href="' . get_permalink() . '"\>' . $instance['fmcta_heading_title_content'] . '</a>' . $after_title;
+                    } //Generate custom link via text fmcta_type_url field
+                    else {
+                        echo $before_title . '<a href="' . $instance['fmcta_type_url'] . '">' . $instance['fmcta_heading_title_content'] . '</a>' . $after_title;
+                    }
+                } else {
+                    echo $before_title . $instance['fmcta_heading_title_content'] . $after_title;
+                }
+                break;
+
+            //CTA is not using a title
+            case ($instance['fmcta_heading_title_type'] == "none"):
+                break;
+
+            // For some reason if none of the above work, default to
+            default:
+                break;
+
+        }
     }
 
 } //featureme
