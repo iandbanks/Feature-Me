@@ -221,7 +221,10 @@ class fmcta_widget extends WP_Widget
      */
     public function form($instance)
     {
-        $fmcta_featured_id = $instance['fmcta_feature'];
+        $fmcta_featured_id;
+        if (isset($instance['fmcta_feature'])) {
+            $fmcta_featured_id = $instance['fmcta_feature'];
+        }
         //print_r($instance);
 
         echo $this->generateCSS(); //generate CSS to page
@@ -248,7 +251,11 @@ class fmcta_widget extends WP_Widget
                            class="<?php echo $this->get_field_id('fmcta_landing_type') ?>" value="default"
                            id="<?php echo $this->get_field_id('fmcta_landing_type') ?>_1"
                         <?php
-                        if ($instance['fmcta_landing_type'] == "default" || $instance['fmcta_landing_type'] == "") {
+                        if (isset ($instance['fmcta_landing_type'])) {
+                            if ($instance['fmcta_landing_type'] == "default" || $instance['fmcta_landing_type'] == "") {
+                                echo 'checked="checked"';
+                            }
+                        } else {
                             echo 'checked="checked"';
                         } ?> /><!--/fm_landing_1-->
 
@@ -260,8 +267,10 @@ class fmcta_widget extends WP_Widget
                            class="<?php echo $this->get_field_id('fmcta_landing_type') ?>" value="external"
                            id="<?php echo $this->get_field_id('fmcta_landing_type') ?>_2"
                         <?php
-                        if ($instance['fmcta_landing_type'] == "external") {
-                            echo 'checked="checked"';
+                        if (isset ($instance['fmcta_landing_type'])) {
+                            if ($instance['fmcta_landing_type'] == "external") {
+                                echo 'checked="checked"';
+                            }
                         }  ?> /><!--/fm_landing_2-->
                     <label for="<?php echo $this->get_field_id('fmcta_landing_type') ?>_2">External Website</label></p>
 
@@ -279,13 +288,22 @@ class fmcta_widget extends WP_Widget
                     <select name="<?php echo $this->get_field_name('fmcta_feature'); ?>" class="feature-me-select"
                             style="width:100%;" id="<?php echo $this->get_field_id('fmcta_feature') ?>">
 
-                        <option selected="selected" value="<?php echo esc_attr($instance['fmcta_feature']); ?>"><?php
-                            $selected_feature = new WP_QUERY(array('p' => $fmcta_featured_id, 'post_type' => array('post', 'page'), 'posts_per_page' => '1'));
-                            while ($selected_feature->have_posts()): $selected_feature->the_post();
-                                echo the_title();
+                        <option selected="selected" value="<?php
+                        if (isset ($instance['fmcta_feature'])) {
+                            echo esc_attr($instance['fmcta_feature']);
+                        } ?>"><?php
+                            if (!empty($fmcta_featured_id)) {
+                                $selected_feature = new WP_QUERY(array('p' => $fmcta_featured_id, 'post_type' => array('post', 'page'), 'posts_per_page' => '1'));
+                                while ($selected_feature->have_posts()): $selected_feature->the_post();
+                                    echo the_title();
 
-                            endwhile;
-                            wp_reset_query();?></option>
+                                endwhile;
+                                wp_reset_query();
+                            } else {
+                                echo 'Select a Post or Page';
+                            }
+                            ?>
+                        </option>
 
                         <optgroup label="Pages">
                             <?php
@@ -344,7 +362,12 @@ class fmcta_widget extends WP_Widget
                                                                                                       id="<?php echo $this->get_field_id('fmcta_use_image'); ?>_1"
                                                                                                       class="<?php echo $this->get_field_id('fmcta_use_image'); ?>"
                                                                                                       name="<?php echo $this->get_field_name('fmcta_use_image'); ?>"
-                                                                                                      value="upload" <?php if ($instance['fmcta_use_image'] == "upload") { ?> checked="checked" <?php } ?>  />
+                                                                                                      value="upload" <?php
+                         if (isset($instance['fmcta_use_image'])) {
+                             if ($instance['fmcta_use_image'] == "upload") {
+                                 echo 'checked="checked"';
+                             }
+                         } ?>  />
                      </span>
                     <label
                         for="<?php echo $this->get_field_id('fmcta_use_image'); ?>_1">Upload an image
@@ -356,8 +379,12 @@ class fmcta_widget extends WP_Widget
                     <input type="radio" id="<?php echo $this->get_field_id('fmcta_use_image'); ?>_2"
                            class="<?php echo $this->get_field_id('fmcta_use_image'); ?>"
                            name="<?php echo $this->get_field_name('fmcta_use_image'); ?>"
-                           value="feature" <?php if ($instance['fmcta_use_image'] == 'feature') { ?>
-                        checked="checked" <?php } ?>  />
+                           value="feature" <?php
+                    if (isset($instance['fmcta_use_image'])) {
+                        if ($instance['fmcta_use_image'] == 'feature') {
+                            echo 'checked="checked"';
+                        }
+                    } ?>  />
                     <label
                         for="<?php echo $this->get_field_id('fmcta_use_image'); ?>_2">Use Page/Post Featured
                         Image</label>
@@ -367,8 +394,12 @@ class fmcta_widget extends WP_Widget
                     <input type="radio" id="<?php echo $this->get_field_id('fmcta_use_image'); ?>_3"
                            class="<?php echo $this->get_field_id('fmcta_use_image'); ?>"
                            name="<?php echo $this->get_field_name('fmcta_use_image'); ?>"
-                           value="none" <?php if ($instance['fmcta_use_image'] == 'none') { ?> checked="checked"
-                    <?php } ?>  />
+                           value="none" <?php
+                    if (isset($instance['fmcta_use_image'])) {
+                        if ($instance['fmcta_use_image'] == 'none') {
+                            echo 'checked="checked"';
+                        }
+                    } ?>  />
                          </span>
                     <label
                         for="<?php echo $this->get_field_id('fmcta_use_image'); ?>_3">Off</label>
@@ -377,7 +408,12 @@ class fmcta_widget extends WP_Widget
                     <input type="text" name="<?php echo $this->get_field_name('fmcta_image_uri'); ?>"
                            id="<?php echo $this->get_field_id('fmcta_image_uri') ?>"
                            class="<?php echo $this->get_field_id('fmcta_image_uri') ?> fmcta_image_uri"
-                           value="<?php echo $instance['fmcta_image_uri'] ?>" placeholder="Paste URI or Click &rarr;"/>
+                           value="<?php
+                           if (isset($instance['fmcta_image_uri'])) {
+                               echo $instance['fmcta_image_uri'];
+                           } else {
+                               echo '';
+                           } ?>" placeholder="Paste URI or Click &rarr;"/>
                     <input class="button fmcta_upload <?php echo $this->get_field_id('fmcta_upload'); ?>"
                            name="<?php echo $this->get_field_name('fmcta_upload'); ?>"
                            id="<?php echo $this->get_field_id('fmcta_upload') ?>" value="Upload"/>
