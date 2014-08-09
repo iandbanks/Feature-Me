@@ -445,7 +445,10 @@ class fmcta_widget extends WP_Widget
                     <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_type'); ?>"
                            value="custom"
                            class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>"
-                           id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_1" <?php if ($instance['fmcta_heading_title_type'] == "custom" || $instance['fmcta_heading_title_type'] == "") { ?> checked="checked" <?php } ?>  />
+                           id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_1" <?php
+                    if ( isset ( $instance['fmcta_heading_title_type'] ) ){
+                        if ($instance['fmcta_heading_title_type'] == "custom" || $instance['fmcta_heading_title_type'] == "") { echo 'checked="checked"'; }
+                    } ?>  />
 
                     <label for="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_1">Custom Title
                         <small>Recommended</small>
@@ -454,20 +457,32 @@ class fmcta_widget extends WP_Widget
                     <span class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_label">
                     <br/>
                     <!--Page/Post Title-->
-                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_type'); ?>"
+                    <input type="radio" name="<?php
+                    if ( isset ( $instance['fmcta_heading_title_type'] ) ){
+                        echo $this->get_field_name('fmcta_heading_title_type');
+                    } ?>"
                            value="post"
                            class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>"
-                           id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_2" <?php if ($instance['fmcta_heading_title_type'] == "post") { ?> checked="checked" <?php } ?>  />
+                           id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_2" <?php
+                    if ( isset ($instance['fmcta_heading_title_type']) ){
+                        if ($instance['fmcta_heading_title_type'] == "post") { echo 'checked="checked"'; }
+                    } ?>  />
                     <label for="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_2">Post/Page
                         Title</label>
                         </span>
                     <span class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_label">
                     <br/>
                     <!--No Title-->
-                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_type'); ?>"
+                    <input type="radio" name="<?php
+                    if ( isset ( $instance['fmcta_heading_title_type'] ) ){
+                        echo $this->get_field_name('fmcta_heading_title_type');
+                    } ?>"
                            value="none"
                            class="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>"
-                           id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_3" <?php if ($instance['fmcta_heading_title_type'] == "none") { ?> checked="checked" <?php } ?>  />
+                           id="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_3" <?php
+                    if ( isset( $instance['fmcta_heading_title_type'] ) ){
+                        if ($instance['fmcta_heading_title_type'] == "none") { echo 'checked="checked"'; }
+                    } ?>  />
                     <label for="<?php echo $this->get_field_id('fmcta_heading_title_type'); ?>_3">Hide Title</label>
                         </span>
                     <!--/No Title-->
@@ -478,7 +493,10 @@ class fmcta_widget extends WP_Widget
                     <p><input type="text" placeholder="Enter an Attention Grabbing title!" class="<?php echo
                         $this->get_field_id('fmcta_heading_title_content'); ?>"
                               name="<?php echo $this->get_field_name('fmcta_heading_title_content'); ?>"
-                              value="<?php echo esc_attr($instance['fmcta_heading_title_content']); ?>"
+                              value="<?php
+                              if ( isset( $instance['fmcta_heading_title_content'] ) ){
+                                  echo esc_attr($instance['fmcta_heading_title_content']);
+                              } ?>"
                               style="width:100%;"/>
                     </p>
                 </div>
@@ -495,8 +513,11 @@ class fmcta_widget extends WP_Widget
                     <input type="radio" class="<?php echo $this->get_field_id('fmcta_description_type'); ?>"
                            id="<?php echo $this->get_field_id('fmcta_description_type'); ?>_1" value="custom"
                            name="<?php echo $this->get_field_name('fmcta_description_type'); ?>"
-                           <?php if (esc_attr($instance['fmcta_description_type']) == 'custom' || esc_attr($instance['fmcta_description_type']) == ''){
-                           ?>checked="checked"<?php } ?>  />
+                           <?php
+                           if( isset ( $instance['fmcta_description_type'] ) ){
+                           if (esc_attr($instance['fmcta_description_type']) == 'custom' || esc_attr($instance['fmcta_description_type']) == ''){
+                               echo 'checked="checked"'; }
+                    } ?>  />
                     <label for="<?php echo $this->get_field_id('fmcta_description_type'); ?>_1">Custom</label>
                         </span>
                     <!--/Custom Body-->
@@ -507,8 +528,12 @@ class fmcta_widget extends WP_Widget
                     <input type="radio" class="<?php echo $this->get_field_id('fmcta_description_type'); ?>"
                            id="<?php echo $this->get_field_id('fmcta_description_type'); ?>_2" value="excerpt"
                            name="<?php echo $this->get_field_name('fmcta_description_type'); ?>"
-                           <?php if (esc_attr($instance['fmcta_description_type']) == 'excerpt'){
-                           ?>checked="checked"<?php } ?>  />
+                           <?php
+                           if ( isset ( $instance['fmcta_description_type'] ) ){
+                           if (esc_attr($instance['fmcta_description_type']) == 'excerpt'){
+                               echo 'checked="checked"';
+                           }
+                    } ?>  />
                     <label for="<?php echo $this->get_field_id('fmcta_description_type'); ?>_2">Post/Page Except</label>
                         </span>
                     <!--/Default Body-->
@@ -518,7 +543,9 @@ class fmcta_widget extends WP_Widget
                     <input type="radio" class="<?php echo $this->get_field_id('fmcta_description_type'); ?>"
                            id="<?php echo $this->get_field_id('fmcta_description_type'); ?>_3" value="none"
                            name="<?php echo $this->get_field_name('fmcta_description_type'); ?>"
-                           <?php if (esc_attr($instance['fmcta_description_type']) == 'none'){ ?>checked="checked"<?php } ?>  />
+                           <?php if ( isset ( $instance['fmcta_description_type'] ) ){
+                           if (esc_attr($instance['fmcta_description_type']) == 'none'){ echo 'checked="checked"'; }
+                    } ?>  />
                     <label for="<?php echo $this->get_field_id('fmcta_description_type'); ?>_3">Hide</label>
                     <!--/No Body-->
                     &nbsp;
@@ -529,7 +556,10 @@ class fmcta_widget extends WP_Widget
                     <p><textarea id="<?php echo $this->get_field_id('fmcta_description_type_content'); ?>"
                                  name="<?php echo $this->get_field_name('fmcta_description_type_content'); ?>"
                                  style="width:100%;"
-                                 placeholder="Describe in a couple words how this brings value to your users."><?php echo ($instance['fmcta_description_type_content'] == '') ? "" : esc_attr($instance['fmcta_description_type_content']); ?></textarea>
+                                 placeholder="Describe in a couple words how this brings value to your users."><?php
+                            if ( isset( $instance['fmcta_description_type_content'] )){
+                                echo ($instance['fmcta_description_type_content'] == '') ? "" : esc_attr($instance['fmcta_description_type_content']);
+                            } ?></textarea>
                     </p>
                 </div>
             </div>
