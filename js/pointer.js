@@ -1,13 +1,16 @@
 jQuery(document).ready( function($) {
 
+    console.log('Pointer Ready');
     //Check if Feature Me has any widgets thus far
     var fm_length=$('div[id$="_feature_me-"]').length;
-    if(fm_length > 1){
+    console.log('fm_length = ' + fm_length);
+    if(fm_length >= 0){
         fm_open_pointer(0);
     }
 
     function fm_open_pointer(i) {
-        pointer = fmPointer.pointers[i];
+        console.log('Pointer');
+        pointer = fmcta_pointer.pointers[i];
         options = $.extend( pointer.options, {
             close: function() {
                 $.post( ajaxurl, {
