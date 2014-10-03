@@ -89,60 +89,6 @@ class fmcta_widget extends WP_Widget {
 		while ( $the_feature->have_posts() ):
 			$the_feature->the_post();
 
-
-			/**
-			 * @todo Remove this commented out code once testing has proven new title method works appropriately.
-			 */
-
-			/*--CTA Title--*/
-
-			/*switch (true) {
-				//CTA is using the page/post title
-				case ($fmcta_heading_title_type == "post"):
-
-					//Generate a link for header
-					if ($header_link == "true") {
-						//Generate default link via permalink
-						if ($fmcta_landing_type == "default") {
-							echo $before_title . '<a href="' . get_permalink() . '"\>' . the_title('', '', false) . '</a>' . $after_title;
-						} //Generate custom link via text fmcta_type_url field
-						else {
-
-							echo $before_title . '<a href="' . $fmcta_type_url . '">' . $fmcta_heading_title_content . '</a>' . $after_title;
-						}
-					} else {
-						echo $before_title . $fmcta_heading_title_content . $after_title;
-					}
-					break;
-
-				//CTA is using a custom title
-				case ($fmcta_heading_title_type == "custom"): //Custom Title
-
-					//Generate a link for Header
-					if ($header_link == "true") {
-						//Generate default link via permalink
-						if ($fmcta_landing_type == "default") {
-							echo $before_title . '<a href="' . get_permalink() . '"\>' . $fmcta_heading_title_content . '</a>' . $after_title;
-						} //Generate custom link via text fmcta_type_url field
-						else {
-							echo $before_title . '<a href="' . $fmcta_type_url . '">' . $fmcta_heading_title_content . '</a>' . $after_title;
-						}
-					} else {
-						echo $before_title . $fmcta_heading_title_content . $after_title;
-					}
-					break;
-
-				//CTA is not using a title
-				case ($fmcta_heading_title_type == "none"):
-					break;
-
-				// For some reason if none of the above work, default to
-				default:
-					break;
-
-			}*/
-
-
 			//Render Title and Featured Image
 
 			if ( isset( $instance['fmcta_image_placement'] ) ) {
