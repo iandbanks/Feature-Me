@@ -878,7 +878,7 @@ function fmcta_render_title( $instance, $before_title, $after_title ) {
 
 	switch ( true ) {
 		//CTA is using the page/post title
-		case ( $instance['fmcta_heading_title_type'] == "post" ):
+		case ( isset($instance['fmcta_heading_title_type']) && $instance['fmcta_heading_title_type'] == "post" ):
 
 			//Generate a link for header
 			if ( $instance['header_link'] == "true" ) {
@@ -896,7 +896,7 @@ function fmcta_render_title( $instance, $before_title, $after_title ) {
 			break;
 
 		//CTA is using a custom title
-		case ( $instance['fmcta_heading_title_type'] == "custom" ): //Custom Title
+		case ( isset($instance['fmcta_heading_title_type']) && $instance['fmcta_heading_title_type'] == "custom" ): //Custom Title
 
 			//Generate a link for Header
 			if ( isset( $instance['header_link'] ) && $instance['header_link'] == "true" ) {
@@ -913,7 +913,7 @@ function fmcta_render_title( $instance, $before_title, $after_title ) {
 			break;
 
 		//CTA is not using a title
-		case ( $instance['fmcta_heading_title_type'] == "none" ):
+		case ( isset($instance['fmcta_heading_title_type']) && $instance['fmcta_heading_title_type'] == "none" ):
 			break;
 
 		// For some reason if none of the above work, default to
