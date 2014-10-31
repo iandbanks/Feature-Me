@@ -47,16 +47,18 @@
  *
  * @since 1.1.0
  */
-include_once (plugin_dir_path(__FILE__).'classes/fmcta_setup.php');
-include_once (plugin_dir_path(__FILE__).'classes/fmcta_widget.php');
-include_once (plugin_dir_path(__FILE__).'fmcta_pointer.php');
+include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_setup.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_widget.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'fmcta_pointer.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'lib/shortcodes.php' );
 
-function fm_add_scripts(){
-    wp_enqueue_script('jquery');
-    wp_enqueue_style("featureme-css", plugin_dir_path(__FILE__) . "featureme.css");
+function fm_add_scripts() {
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_style( "featureme-css", plugin_dir_path( __FILE__ ) . "featureme.css" );
 
 }
-add_action('wp_enqueue_script','fm_add_scripts');
+
+add_action( 'wp_enqueue_script', 'fm_add_scripts' );
 
 /**
  * 1.2 - Setup Plugin
@@ -81,12 +83,13 @@ $fm->init();
  * @param $hook
  */
 function add_admin_scripts( $hook ) {
-    if ( $hook == 'widgets.php' ) {
-        wp_enqueue_media();
-        wp_enqueue_script('fmcta_widget',plugin_dir_url(__FILE__).'js/fmcta_widget.js');
-    }
+	if ( $hook == 'widgets.php' ) {
+		wp_enqueue_media();
+		wp_enqueue_script( 'fmcta_widget', plugin_dir_url( __FILE__ ) . 'js/fmcta_widget.js' );
+	}
 }
-add_action('admin_enqueue_scripts','add_admin_scripts',10,1);
+
+add_action( 'admin_enqueue_scripts', 'add_admin_scripts', 10, 1 );
 
 /**
  * 2.2 - fm_pointer_load
@@ -111,8 +114,8 @@ add_action( 'admin_enqueue_scripts', 'fm_pointer_load', 1000 );
  *
  * @since 1.1.0
  */
-if($fm->compare_versions() == false){
-    add_action('widgets_init', 'fm_activate_msg');
+if ( $fm->compare_versions() == false ) {
+	add_action( 'widgets_init', 'fm_activate_msg' );
 }
 
 /**
@@ -121,8 +124,8 @@ if($fm->compare_versions() == false){
  *
  * @since 1.1.0
  */
-function fm_activate_msg(){
-    add_action('admin_notices','fm_pointer_show_welcome');
+function fm_activate_msg() {
+	add_action( 'admin_notices', 'fm_pointer_show_welcome' );
 }
 
 
@@ -134,24 +137,26 @@ function fm_activate_msg(){
  *
  * @since 1.1.1
  */
-function fm_pointer_show_welcome(){
+function fm_pointer_show_welcome() {
 
-    $p['fm_pointer_welcome'] = array(
-        'target' => '#menu-appearance',
-        'options' => array(
-            'content' => sprintf( '<h3> %s </h3> <p> %s </p>',
-                __( 'Feature Me - Getting Started' ,'plugindomain'),
-                __( 'Thanks for installing Feature Me! Create your first call to action in the <strong>widgets menu</strong> here!',
-                    'plugindomain')
-            ),
-            'position' => array( 'edge' => 'left', 'align' => 'middle' )
-        )
-    );
-    return $p;
+	$p['fm_pointer_welcome'] = array(
+		'target'  => '#menu-appearance',
+		'options' => array(
+			'content'  => sprintf( '<h3> %s </h3> <p> %s </p>',
+				__( 'Feature Me - Getting Started', 'plugindomain' ),
+				__( 'Thanks for installing Feature Me! Create your first call to action in the <strong>widgets menu</strong> here!',
+					'plugindomain' )
+			),
+			'position' => array( 'edge' => 'left', 'align' => 'middle' )
+		)
+	);
+
+	return $p;
 }
-add_filter('fm_admin_pointers-plugins','fm_pointer_show_welcome'); //display message on main plugins page
-add_filter('fm_admin_pointers-update','fm_pointer_show_welcome'); //display message on update page
-add_filter('fm_admin_pointers-dashboard','fm_pointer_show_welcome'); //display message on main dashboard page
+
+add_filter( 'fm_admin_pointers-plugins', 'fm_pointer_show_welcome' ); //display message on main plugins page
+add_filter( 'fm_admin_pointers-update', 'fm_pointer_show_welcome' ); //display message on update page
+add_filter( 'fm_admin_pointers-dashboard', 'fm_pointer_show_welcome' ); //display message on main dashboard page
 
 
 /**
@@ -159,21 +164,23 @@ add_filter('fm_admin_pointers-dashboard','fm_pointer_show_welcome'); //display m
  * Displays a pointer message when user lands on the widgets page
  *
  * @since 1.2
- * 
+ *
  * @return mixed
  */
 function fm_pointer_widget_location() {
-    $p['fm_pointer_widget_location'] = array(
-        'target' => "div[id$='_feature_me-__i__'] h4",
-        'options' => array(
-            'content' => sprintf( '<h3> %s </h3> <p> %s </p>',
-                __( 'Feature Me - Getting Started' ,'plugindomain'),
-                __( 'Looking for Feature Me? It\'s right here! Drag the widget to create your first call to action!',
-                    'plugindomain')
-            ),
-            'position' => array( 'edge' => 'left', 'align' => 'middle' )
-        )
-    );
-    return $p;
+	$p['fm_pointer_widget_location'] = array(
+		'target'  => "div[id$='_feature_me-__i__'] h4",
+		'options' => array(
+			'content'  => sprintf( '<h3> %s </h3> <p> %s </p>',
+				__( 'Feature Me - Getting Started', 'plugindomain' ),
+				__( 'Looking for Feature Me? It\'s right here! Drag the widget to create your first call to action!',
+					'plugindomain' )
+			),
+			'position' => array( 'edge' => 'left', 'align' => 'middle' )
+		)
+	);
+
+	return $p;
 }
+
 add_filter( 'fm_admin_pointers-widgets', 'fm_pointer_widget_location' );
