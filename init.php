@@ -2,16 +2,16 @@
 /********************************************************************************
  *
  * Plugin Name: Feature Me: Call to Action Widget
- * Plugin URI: http://www.phase-change.org/plugins/feature-me
+ * Plugin URI: http://www.phasechangedigital.com/plugins/feature-me
  * Description: A powerful widget that allows you to easily create a call to action on your website.
  * Author: Phase Change Digital
- * Version: 1.2
- * Author URI: http://www.phase-change.org
+ * Version: 2.0b
+ * Author URI: http://www.phasechangedigital.com
  * License: GNU General Public License, version 2
  * License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  * Tags: feature, widget, featured-post, featured-page, feature-me, feature-widget,cta, call to action,
  * featured post, feature me, call to action widget, feature me cta widget, feature me cta widget,
- * feature me call to action widget
+ * feature me call to action widget, featured content, featured content widget
  *
  *
  * Copyright 2012-2013 Ian Banks
@@ -49,7 +49,7 @@
  */
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_setup.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_widget.php' );
-include_once( plugin_dir_path( __FILE__ ) . 'fmcta_pointer.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'lib/fmcta_pointer.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'lib/shortcodes.php' );
 
 function fm_add_scripts() {
@@ -143,11 +143,11 @@ function fm_pointer_show_welcome() {
 		'target'  => '#menu-appearance',
 		'options' => array(
 			'content'  => sprintf( '<h3> %s </h3> <p> %s </p>',
-				__( 'Feature Me - Getting Started', 'plugindomain' ),
+				__( 'Feature Me - Getting Started', 'feature-me' ),
 				__( 'Thanks for installing Feature Me! Create your first call to action in the <strong>widgets menu</strong> here!',
-					'plugindomain' )
+					'feature-me' )
 			),
-			'position' => array( 'edge' => 'left', 'align' => 'middle' )
+			'position' => array( 'edge' => 'left', 'align' => 'middle' ),
 		)
 	);
 
@@ -176,7 +176,8 @@ function fm_pointer_widget_location() {
 				__( 'Looking for Feature Me? It\'s right here! Drag the widget to create your first call to action!',
 					'plugindomain' )
 			),
-			'position' => array( 'edge' => 'left', 'align' => 'middle' )
+			'position' => array( 'edge' => 'left', 'align' => 'middle' ),
+
 		)
 	);
 

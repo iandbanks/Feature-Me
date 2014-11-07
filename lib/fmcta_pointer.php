@@ -7,7 +7,7 @@
  * Original code from Integrating With WordPress’ UI: Admin Pointers by
  * Stephen Harris at http://bit.ly/NkCAU3
  *
- * Copyright 2012-2013 Ian Banks
+ * Copyright 2012-2014 Ian Banks
  *
  ********************************************************************************/
 
@@ -51,7 +51,7 @@ function fm_pointer_load( $hook_suffix ) {
     wp_enqueue_style( 'wp-pointer' );
 
     // Add pointers script to queue. Add custom script.
-    wp_enqueue_script( 'fm-pointer', plugins_url( 'js/pointer.js', __FILE__ ), array( 'wp-pointer' ) );
+    wp_enqueue_script( 'fm-pointer', plugins_url() . '/feature-me/js/pointer.js', array( 'wp-pointer' ) );
 
     // Add pointer options to script.
     wp_localize_script( 'fm-pointer', 'fmcta_pointer', $valid_pointers );
