@@ -14,7 +14,7 @@
  * feature me call to action widget, featured content, featured content widget
  *
  *
- * Copyright 2012-2013 Ian Banks
+ * Copyright 2012-2014 Ian Banks
  *
  ********************************************************************************
  *
@@ -30,6 +30,8 @@
  *          3.2 - fm_activate_msg
  *          3.3 - fm_pointer_show_welcome
  *          3.4 - fm_pointer_widget_location
+ *      4.0 - Settings Setup
+ *          4.1 - fm_settings_init - Initialize Settings Page
  *
  *
  ********************************************************************************/
@@ -49,12 +51,14 @@
  */
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_setup.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_widget.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_admin_settings.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'lib/fmcta_pointer.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'lib/shortcodes.php' );
 
 function fm_add_scripts() {
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_style( "featureme-css", plugin_dir_path( __FILE__ ) . "featureme.css" );
+	//wp_enqueue_style('featureme-css', get_option());
 
 }
 
@@ -185,3 +189,20 @@ function fm_pointer_widget_location() {
 }
 
 add_filter( 'fm_admin_pointers-widgets', 'fm_pointer_widget_location' );
+
+/********************************************************************************
+ * 4.0 - Settings Setup
+ *
+ * @since 2.0
+ ********************************************************************************/
+
+/**
+ * 4.1 - fm_settings_init - Initialize Settings Page
+ */
+function fm_settings_init(){
+	//add_submenu_page('options-general.php','Feature Me','Feature Me','manage_options', 'feature-me', 'fm_settings_page');
+
+}
+add_action('admin_menu', 'fm_settings_init', 10);
+
+$fm_settings_page = new \fm\fm_admin_settings();

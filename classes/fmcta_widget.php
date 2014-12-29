@@ -110,34 +110,6 @@ class fmcta_widget extends WP_Widget
             }
 
 
-            /*--CTA Image--*/
-
-            /*if ($fmcta_use_image == 'feature') {
-                */
-            ?><!--
-            <a href="<?php /*if ($fmcta_landing_type == "default") {
-                the_permalink();
-            } else {
-                echo $fmcta_type_url;
-            } */
-            ?>" title="<?php /*echo $fmcta_heading_title_content; */ ?>">
-                <?php /*the_post_thumbnail($instance->thumb_size, array('class' => 'fmcta_thumb'));
-                */
-            ?></a><?php
-            /*            } else if ($fmcta_use_image == "upload") {
-                            */
-            ?>
-                <a href="<?php /*if ($fmcta_landing_type == "default") {
-                    the_permalink();
-                } else {
-                    echo $fmcta_type_url;
-                } */
-            ?>" title="<?php /*echo $fmcta_heading_title_content; */ ?>">
-                    <img src="<?php /*echo $fmcta_image_uri; */ ?>" alt="<?php /*echo $fmcta_heading_title_content; */ ?>"/></a>
-            --><?php
-            /*            }*/
-
-
             /*--CTA Description--*/
 
             switch ($fmcta_description_type) {
