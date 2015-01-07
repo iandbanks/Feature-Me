@@ -1,49 +1,5 @@
-.feature-me .featureme-thumb{
-    width:100%;
-    height:auto;
-}
-.feature-me p{
-    margin: 10px 0 0 0;
-}
-
-.fmcta_featured_image{
-    text-align:center;
-}
-
-/*----------Buttons----------*/
-/*
- * CSS Button code thanks to Steven Wanderski at http://css3buttongenerator.com
+/**
+ * Feature Me Styles
+ *
+ * Update styles on the Feature Me settings page
  */
-
-
-.feature-me a.fmcta-button{
-    background: #d9aa34;
-    background-image: -webkit-linear-gradient(top, #d9aa34, #c2952b);
-    background-image: -moz-linear-gradient(top, #d9aa34, #c2952b);
-    background-image: -ms-linear-gradient(top, #d9aa34, #c2952b);
-    background-image: -o-linear-gradient(top, #d9aa34, #c2952b);
-    background-image: linear-gradient(to bottom, #d9aa34, #c2952b);
-    border-radius: 3px;
-    color: #ffffff;
-    font-size: 16px;
-    padding: 10px 0px 10px 0px;
-    margin: 10px 0;
-    text-decoration: none;
-    width:100%;
-    display:block;
-    text-align: center;
-}
-
-.feature-me a.fmcta-button:hover {
-    background: #d9aa34;
-    background-image: -webkit-linear-gradient(top, #d9aa34, #a67d1e);
-    background-image: -moz-linear-gradient(top, #d9aa34, #a67d1e);
-    background-image: -ms-linear-gradient(top, #d9aa34, #a67d1e);
-    background-image: -o-linear-gradient(top, #d9aa34, #a67d1e);
-    background-image: linear-gradient(to bottom, #d9aa34, #a67d1e);
-    text-decoration: none;
-}
-.feature-me a.fmcta-button:visited,
-.feature-me a.fmcta-button:link{
-    color:#ffffff !important;
-}

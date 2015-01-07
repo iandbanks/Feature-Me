@@ -71,8 +71,7 @@ class fm_admin_settings {
 	/**
 	 * Start up
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 	}
@@ -80,8 +79,7 @@ class fm_admin_settings {
 	/**
 	 * Add options page
 	 */
-	public function add_plugin_page()
-	{
+	public function add_plugin_page() {
 		// This page will be under "Settings"
 		add_options_page(
 			'Feature Me',
@@ -95,13 +93,13 @@ class fm_admin_settings {
 	/**
 	 * Options page callback
 	 */
-	public function create_admin_page()
-	{
+	public function create_admin_page() {
 		// Set class property
 		$this->options = get_option( 'feature_me_settings' );
 		?>
 		<div class="wrap">
 			<h2>Feature Me Settings</h2>
+
 			<form method="post" action="options.php">
 				<?php
 				// This prints out all hidden setting fields
@@ -117,8 +115,7 @@ class fm_admin_settings {
 	/**
 	 * Register and add settings
 	 */
-	public function page_init()
-	{
+	public function page_init() {
 		register_setting(
 			'feature_me_group', // Option group
 			'feature_me_settings', // Option name
@@ -149,12 +146,12 @@ class fm_admin_settings {
 	 * @return array
 	 */
 
-	public function sanitize( $input )
-	{
+	public function sanitize( $input ) {
 		$new_input = array();
 
-		if( isset( $input['css'] ) )
-			$new_input['css'] = sanitize_text_field( $input['css'] );
+		if ( isset( $input['css'] ) ) {
+			$new_input['css'] = esc_textarea( $input['css'] );
+		}
 
 		return $new_input;
 	}
@@ -162,19 +159,17 @@ class fm_admin_settings {
 	/**
 	 * Print the Section text
 	 */
-	public function print_section_info()
-	{
+	public function print_section_info() {
 		print 'Enter your settings below:';
 	}
 
 	/**
 	 * Get the settings option array and print one of its values
 	 */
-	public function css_callback()
-	{
+	public function css_callback() {
 		printf(
-			'<textarea type="text" id="css" name="fmcta_settings[css]" style="%s" >%s</textarea>','width:50%; height:300px;',
-			isset( $this->options['css'] ) ? esc_attr( $this->options['css']) : $this->default_css
+			'<textarea type="text" id="css" name="fmcta_settings[css]" style="%s" >%s</textarea>', 'width:50%; height:300px;',
+			isset( $this->options['css'] ) ? esc_attr( $this->options['css'] ) : $this->default_css
 		);
 	}
 }

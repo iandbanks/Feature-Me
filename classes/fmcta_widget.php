@@ -76,7 +76,8 @@ class fmcta_widget extends WP_Widget
         $fm_url;
         $useLink; //bool to determine whether or not to use a link
 
-        wp_enqueue_style("featureme-css", plugins_url("feature-me") . "/featureme.css");
+        wp_enqueue_style("featuremecss", plugins_url("feature-me") . "/featureme.css");
+        wp_add_inline_style('featuremecss', get_option('fm-settings-css') );
 
 
         ?>

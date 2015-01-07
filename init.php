@@ -52,13 +52,14 @@
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_setup.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_widget.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_admin_settings.php' );
+include_once( plugin_dir_path( __FILE__ ) . 'lib/settings.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'lib/fmcta_pointer.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'lib/shortcodes.php' );
 
 function fm_add_scripts() {
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_style( "featureme-css", plugin_dir_path( __FILE__ ) . "featureme.css" );
-	//wp_enqueue_style('featureme-css', get_option());
+	//wp_enqueue_style( "featureme-css", plugin_dir_path( __FILE__ ) . "featureme.css" );
+	wp_enqueue_style('featuremecss', get_option('fm-settings-css'));
 
 }
 
