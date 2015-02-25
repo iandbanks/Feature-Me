@@ -1,7 +1,7 @@
 <?php
 
 /********************************************************************************
- *  Copyright 2012-2014 Ian Banks
+ *  Copyright 2012-2015 Ian Banks
  *******************************************************************************
  *
  *      Table of Contents
@@ -43,77 +43,8 @@ class fmcta_widget extends WP_Widget
     {
         extract($args, EXTR_SKIP);
 
-        /**
-         * Converts Previous $instance data to new $instances data and unset old data.
-         * @since 2.0
-         */
-
-        //Convert CTA Title value. From 1.3
-        if( isset( $instance['title'] ) ){
-            $instance['fmcta_heading_title_content'] = $instance['title'];
-            unset( $instance['title'] );
-        }
-
-        //Convert Type of Title value (ie. a custom for custom title, or default to use post title). From 1.3
-        if( isset( $instance['type'] ) ){
-            $instance['fmcta_heading_title_type'] = $instance['type'];
-            unset( $instance['type'] );
-        }
-
-        //Convert the type of link. Whether to show it, use the learn more default, or hide it. From 1.3
-        if( isset( $instance['type_link'] ) ){
-            //@todo convert this variable
-            unset( $instance['type_link'] );
-        }
-
-        if( isset( $instance['copy'] ) ){
-
-        }
-
-        /**
-         * Convert the CTA description text. From 1.3
-         */
-        if( isset( $instance['body'] ) ){
-            $instance['fmcta_description_type_content'] = $instance['body'];
-            unset( $instance['body'] );
-        }
-
-        if( isset( $instance['use_image'] ) ){
-
-        }
-
-        if( isset( $instance['feature'] ) ){
-            //Conversion here
-            unset( $instance['feature'] );
-        }
-
-        if( isset( $instance['class'] ) ){
-            //Conversion here
-            unset( $instance['class'] );
-        }
-
-        if( isset( $instance['type_url'] ) ){
-            //Conversion here
-            unset( $instance['type_url'] );
-        }
-
-        if( isset( $instance['linkURL'] ) ){
-            //Conversion here
-            unset( $instance['linkURL'] );
-        }
-
-        if( isset( $instance['header_link'] ) ){
-            //Conversion here
-            unset( $instance['header_link'] );
-        }
-
-
-
-
-
-
         //Step 1 - Choose a Landing Page to Link To
-        $fmcta_feature = ($instance['fmcta_feature']) ? esc_attr(strip_tags($instance['fmcta_feature'])) : "";
+        $fmcta_feature = ($instance['fmcta_feature']) ? esc_attr(strip_tags($instance['fmcta_feature'])) : ""; // The ID of the featured post
         $fmcta_landing_type = ($instance['fmcta_landing_type']) ? esc_attr(strip_tags($instance['fmcta_landing_type'])) : "";
 
         $fmcta_type_url = (isset($instance['fmcta_type_url'])) ? esc_attr(strip_tags($instance['fmcta_type_url'])) : "";
@@ -173,7 +104,7 @@ class fmcta_widget extends WP_Widget
                     echo $this->fmcta_render_title($instance, $before_title, $after_title);
                     echo $this->fmcta_render_image($instance);
                 } else {
-                    echo "An error occurred. Please resave the widget.";
+                    echo "An error occurred. Please re-save the widget.";
                 }
             } else {
                 echo $this->fmcta_render_title($instance, $before_title, $after_title);
@@ -216,14 +147,91 @@ class fmcta_widget extends WP_Widget
      *
      * @return string|void
      */
-    public
-    function form($instance)
+    public function form($instance)
     {
+
+        /**
+         * Converts Previous $instance data to new $instances data and unset old data.
+         * @since 2.0
+         */
+
+        //Convert CTA Title value. From 1.3
+        if( isset( $instance['title'] ) ){
+            $instance['fmcta_heading_title_content'] = $instance['title'];
+            //unset( $instance['title'] );
+        }
+
+        //Convert Type of Title value (ie. a custom for custom title, or default to use post title). From 1.3
+        if( isset( $instance['type'] ) ){
+            $instance['fmcta_heading_title_type'] = $instance['type'];
+            //unset( $instance['type'] );
+        }
+
+        //Convert the type of link. Whether to show it, use the learn more default, or hide it. From 1.3
+        if( isset( $instance['type_link'] ) ){
+            //@todo convert this variable
+            //unset( $instance['type_link'] );
+        }
+
+        if( isset( $instance['copy'] ) ){
+
+        }
+
+        /**
+         * Convert the CTA description text. From 1.3
+         */
+        if( isset( $instance['body'] ) ){
+            $instance['fmcta_description_type_content'] = $instance['body'];
+            //unset( $instance['body'] );
+        }
+
+        if( isset( $instance['use_image'] ) ){
+            $instance['fmcta_use_image'] = $instance['use_image'];
+            if ( $instance['fmcta_use_image'] == 't' ){
+                $instance['fmcta_use_image'] ='feature';
+            } else if ($instance['fmcta_use_image'] == 'f' ){
+                $instance['fmcta_use_image'] = 'none';
+            }
+        }
+
+        if( isset( $instance['feature'] ) ){
+
+            //Conversion here
+            $instance['fmcta_feature'] = $instance['feature'];
+            //unset( $instance['feature'] );
+        }
+
+        if( isset( $instance['class'] ) ){
+            //Conversion here
+            //unset( $instance['class'] );
+        }
+
+        if( isset( $instance['linkText'] ) ){
+            $instance['fmcta_button_text'] = $instance['linkText'];
+            //unset( $instance['class'] );
+        }
+
+        if( isset( $instance['type_url'] ) ){
+            $instance['fmcta_type_url'] = $instance['type_url'];
+            //unset( $instance['type_url'] );
+        }
+
+        if( isset( $instance['linkURL'] ) ){
+            //Conversion here
+            //unset( $instance['linkURL'] );
+        }
+
+        if( isset( $instance['header_link'] ) ){
+            //Conversion here
+            //unset( $instance['header_link'] );
+        }
+
+
         $fmcta_featured_id;
         if (isset($instance['fmcta_feature'])) {
             $fmcta_featured_id = $instance['fmcta_feature'];
         }
-        //print_r($instance);
+        echo '<pre>' . print_r($instance, true) . '</pre>';
 
         echo $this->generateCSS(); //generate CSS to page
         /**
@@ -678,9 +686,9 @@ class fmcta_widget extends WP_Widget
                                echo $instance['fmcta_button_image_uri'];
                            } ?>"
                            placeholder="Paste URI or Click &rarr;"/>
-                    <input class="button fmcta_upload <?php echo $this->get_field_id('fmcta_button_upload'); ?>"
-                           name="<?php echo $this->get_field_name('fmcta_button_upload'); ?>"
-                           id="<?php echo $this->get_field_id('fmcta_button_upload') ?>" value="Upload"/>
+                    <input class="button fmcta_upload <?php echo $this->get_field_id('fmcta_upload'); ?>"
+                           name="<?php echo $this->get_field_name('fmcta_upload'); ?>"
+                           id="<?php echo $this->get_field_id('fmcta_upload') ?>" value="Upload"/>
                 </div>
                 </p>
 
@@ -890,8 +898,7 @@ EOD;
      * @param string $before_title
      * @param string $after_title
      */
-    public
-    function fmcta_render_title($instance, $before_title, $after_title)
+    public function fmcta_render_title($instance, $before_title, $after_title)
     {
 
         /*--CTA Title--*/
