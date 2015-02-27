@@ -122,30 +122,12 @@ class fmcta_widget extends WP_Widget {
 		// Convert previous $instance data to new $instances data for form.
 		$this->convert_variables();
 
-		// @todo clean up all this junk before releasing 2.0
-
-		//Step 1 - Choose a Landing Page to Link To
-		$fmcta_feature_id     = ( $instance['fmcta_feature_id'] ) ? esc_attr( strip_tags( $instance['fmcta_feature_id'] ) ) : ""; // The ID of the featured post
-
-		$fmcta_landing_href = ( isset( $instance['fmcta_landing_href'] ) ) ? esc_attr( strip_tags( $instance['fmcta_landing_href'] ) ) : "";
-		if ( strpos( $fmcta_landing_href, 'http://' ) === false ) {
-			$fmcta_landing_href = 'http://' . $fmcta_landing_href;
-		}
-
-		$fmcta_description_option         = ( isset( $instance['fmcta_description_option'] ) ) ? esc_attr( strip_tags( $instance['fmcta_description_option'] ) ) : "excerpt";
-		$fmcta_description_content = ( $instance['fmcta_description_content'] ) ? esc_attr( strip_tags( $instance['fmcta_description_content'] ) ) : "";
-
-		//Advanced
-		$class                 = ( isset( $instance['class'] ) ) ? esc_attr( strip_tags( $instance['class'] ) ) : "";
-		$fm_url;
-		$useLink; //bool to determine whether or not to use a link
-
 		wp_enqueue_style( "featuremecss", plugins_url( "feature-me" ) . "/featureme.css" );
 		wp_add_inline_style( 'featuremecss', get_option( 'fm-settings-css' ) );
 
 
 		?>
-		<article class="feature-me <?php echo $class; ?>">
+		<article class="feature-me <?php echo $instance['class']; ?>">
 
 
 			<?php echo $before_widget;
@@ -161,7 +143,9 @@ class fmcta_widget extends WP_Widget {
 						case "image":
 							echo $this->fmcta_render_image($instance);
 							break;
-						// @todo Add fmcta_render_description
+						case "description":
+							$this->fmcta_render_description($instance);
+							break;
 						case "button":
 							echo $this->fmcta_render_button($instance);
 							break;
@@ -173,53 +157,6 @@ class fmcta_widget extends WP_Widget {
 			}
 
 			// @todo Save title in fmcta_heading_title_content so we don't have to run a query each time.
-			$the_feature = new WP_QUERY( array(
-				'p'              => $fmcta_feature_id,
-				'post_type'      => array( 'post', 'page' ),
-				'posts_per_page' => '1'
-			) );
-
-			while ( $the_feature->have_posts() ):
-				$the_feature->the_post();
-
-				//Render Title and Featured Image
-
-				if ( isset( $instance['fmcta_image_placement'] ) ) {
-
-					if ( $instance['fmcta_image_placement'] == "above" ) {
-						echo $this->fmcta_render_image( $instance );
-						echo $this->fmcta_render_title( $instance, $before_title, $after_title );
-					} else if ( $instance['fmcta_image_placement'] == 'below' ) {
-						echo $this->fmcta_render_title( $instance, $before_title, $after_title );
-						echo $this->fmcta_render_image( $instance );
-					} else {
-						echo "An error occurred. Please re-save the widget.";
-					}
-				} else {
-					echo $this->fmcta_render_title( $instance, $before_title, $after_title );
-				}
-
-
-				/*--CTA Description--*/
-
-				switch ( $fmcta_description_option ) {
-					case 'excerpt':
-						the_excerpt();
-						break;
-					case 'custom':
-						echo "<p>" . $fmcta_description_content . "</p>";
-						break;
-					case 'none':
-						break;
-				}
-
-				/*--CTA Button--*/
-
-				echo '<p>' . $this->fmcta_render_button( $instance ) . '</p>';
-
-			endwhile;
-
-			wp_reset_query();
 
 			?>
 			<?php echo $after_widget; ?>
@@ -983,10 +920,9 @@ EOD;
 				if ( $instance['header_link'] == "true" ) {
 					//Generate default link via permalink
 					if ( $instance['fmcta_landing_option'] == "default" ) {
-						echo $before_title . '<a href="' . get_permalink() . '"\>' . the_title( '', '', false ) . '</a>' . $after_title;
+						echo $before_title . '<a href="' . get_permalink($instance['fmcta_feature_id']) . '"\>' . get_the_title($instance['fmcta_feature_id'] ) . '</a>' . $after_title;
 					} //Generate custom link via text fmcta_landing_href field
 					else {
-
 						echo $before_title . '<a href="' . $instance['fmcta_landing_href'] . '">' . $instance['fmcta_heading_title_content'] . '</a>' . $after_title;
 					}
 				} else {
@@ -1043,7 +979,7 @@ EOD;
 		} else if ( $instance['fmcta_image_option'] == "upload" ) {
 			?>
 			<a href="<?php if ( $instance['fmcta_landing_option'] == "default" ) {
-				the_permalink();
+				echo get_permalink($instance['fmcta_feature_id']);
 			} else {
 				echo $instance['fmcta_landing_href'];
 			} ?>" title="<?php echo $instance['fmcta_heading_title_content']; ?>">
@@ -1055,10 +991,24 @@ EOD;
 		echo '</div><!--/.fmcta_feature_idd_image-->';
 	}
 
-	public
-	function fmcta_render_button(
-		$instance
-	) {
+	public function fmcta_render_description($instance){
+		/*--CTA Description--*/
+
+		switch ( $instance['fmcta_description_option'] ) {
+			case 'excerpt':
+				$the_post = get_post($instance['fmcta_feature_id']);
+				setup_postdata($the_post);
+				echo the_excerpt();
+				break;
+			case 'custom':
+				echo "<p>" . $instance['fmcta_description_content'] . "</p>";
+				break;
+			case 'none':
+				break;
+		}
+	}
+
+	public function fmcta_render_button( $instance ) {
 
 		//If the user doesn't want to display the button, stop here.
 		if ( isset( $instance['fmcta_button_type'] ) ) {
@@ -1069,14 +1019,14 @@ EOD;
 
 		//Initiate variables
 		$url;
-		$class          = "fmcta-link";
+		$class = "fmcta-link";
 		$button_content = "";
-		$button_text    = ( isset( $instance['fmcta_button_text'] ) ) ? $instance['fmcta_button_text'] : "";
-		$button_image   = ( isset( $instance['fmcta_button_image_uri'] ) ) ? $instance['fmcta_button_image_uri'] : "";
+		$button_text = ( isset( $instance['fmcta_button_text'] ) ) ? $instance['fmcta_button_text'] : "";
+		$button_image = ( isset( $instance['fmcta_button_image_uri'] ) ) ? $instance['fmcta_button_image_uri'] : "";
 
 		//Get the appropriate URL
 		if ( $instance['fmcta_landing_option'] == 'default' ) {
-			$url = get_the_permalink();
+			$url = get_permalink( $instance['fmcta_feature_id'] );
 		} else {
 			$url = $instance['fmcta_landing_href'];
 		}
@@ -1092,7 +1042,7 @@ EOD;
 			$button_content = "<img src='$button_image' alt='$button_text' />";
 		}
 
-		$link = "<a href='$url' class='$class' >$button_content</a>";
+		$link = "<p><a href='$url' class='$class' >$button_content</a></p>";
 
 		return $link;
 
