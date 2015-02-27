@@ -58,6 +58,7 @@ include_once( plugin_dir_path( __FILE__ ) . 'lib/shortcodes.php' );
 
 function fm_add_scripts() {
 	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script('jquery-ui-sortable');
 	//wp_enqueue_style( "featureme-css", plugin_dir_path( __FILE__ ) . "featureme.css" );
 	wp_enqueue_style('featuremecss', get_option('fm-settings-css'));
 
