@@ -183,7 +183,8 @@ class fmcta_widget extends WP_Widget {
 		if ( isset( $instance['fmcta_feature_id'] ) ) {
 			$fmcta_feature_idd_id = $instance['fmcta_feature_id'];
 		}
-		echo '<pre>' . print_r( $instance, true ) . '</pre>';
+		//echo $instance variable for easier development
+		//echo '<pre>' . print_r( $instance, true ) . '</pre>';
 
 		echo $this->generateCSS(); //generate CSS to page
 		/**
