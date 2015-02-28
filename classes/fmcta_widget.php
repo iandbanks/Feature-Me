@@ -235,19 +235,22 @@ class fmcta_widget extends WP_Widget {
 							Website</label>
 					</p>
 
-					<p>
+                    <div class="<?php echo $this->get_field_id( 'fmcta_landing_href' ); ?>">
+                        <p>
                         <select name="<?php echo $this->get_field_name('fmcta_landing_href_protocol');?>" style="width:23%; display: inline-block;">
                             <option <?php if( isset( $instance['fmcta_landing_href_protocol'] ) ) { if( $instance['fmcta_landing_href_protocol'] == "http://" ){ echo 'selected="selected"'; } } else{ echo 'selected="selected"'; } ?> value="http://">http://</option>
                             <option <?php if( isset( $instance['fmcta_landing_href_protocol'] ) ) { if( $instance['fmcta_landing_href_protocol'] == "https://" ){ echo 'selected="selected"'; } } ?> value="https://">https://</option>
                         </select>
                         <input type="text" name="<?php echo $this->get_field_name( 'fmcta_landing_href' ); ?>"
-					          id="<?php echo $this->get_field_id( 'fmcta_landing_href' ); ?>"
-					          class="<?php echo $this->get_field_id( 'fmcta_landing_href' ); ?>"
-					          value="<?php if ( isset ( $instance['fmcta_landing_href'] ) ) {
-						          echo esc_attr( $instance['fmcta_landing_href'] );
-					          } ?>"
-					          placeholder="example.com, www.example.com"
-					          style="width: 73%; display: inline-block; height: 28px; vertical-align: middle;"/></p>
+                               id="<?php echo $this->get_field_id( 'fmcta_landing_href' ); ?>"
+                               value="<?php if ( isset ( $instance['fmcta_landing_href'] ) ) {
+                                   echo esc_attr( $instance['fmcta_landing_href'] );
+                               } ?>"
+                               placeholder="example.com, www.example.com"
+                               style="width: 73%; display: inline-block; height: 28px; vertical-align: middle;"/>
+                        </p>
+                    </div>
+
 
 
 					<p class="<?php echo $this->get_field_id( 'fmcta_feature_id' ) ?>">
