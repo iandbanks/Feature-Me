@@ -899,6 +899,12 @@ class fmcta_widget extends WP_Widget
         $button_text = (isset($instance['fmcta_button_text'])) ? $instance['fmcta_button_text'] : "";
         $button_image = (isset($instance['fmcta_button_image_uri'])) ? $instance['fmcta_button_image_uri'] : "";
 
+        // Overwrite $button_image with HTTPS for image on secure site/page
+        if( isset( $_SERVER['HTTPS'] ) ){
+            $button_image = preg_replace('/http:/i', 'https:', $button_image);
+        }
+
+
         //Get the appropriate URL
         if ($instance['fmcta_landing_option'] == 'default') {
             $url = get_permalink($instance['fmcta_feature_id']);
