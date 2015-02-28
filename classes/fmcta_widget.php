@@ -186,14 +186,14 @@ class fmcta_widget extends WP_Widget {
 		//echo $instance variable for easier development
 		//echo '<pre>' . print_r( $instance, true ) . '</pre>';
 
-		echo $this->generateCSS(); //generate CSS to page
+		//echo $this->generateCSS(); //generate CSS to page
+
 		/**
 		 * @todo enqueue css
 		 */
 		?>
-
-
-		<div class="fm_widget" id="<?php echo $this->id; ?>">
+        <div class="fm_id"> <?php echo $this->id; ?> </div>
+		<div class="fm_widget" id="<?php echo $this->id;?>">
 
 
 			<?php
@@ -328,7 +328,7 @@ class fmcta_widget extends WP_Widget {
 			<!--Step 2: Choose an Image-->
 			<div class="fm-step-2">
 
-				<h4 class="title fm-option-title <?php echo $this->get_field_id('fm-option-2');?>">Step 2: Choose an
+				<h4 class="title fm-option-title fm-arrow <?php echo $this->get_field_id('fm-option-2');?>">Step 2: Choose an
 					Image
 				</h4>
 
@@ -413,7 +413,7 @@ class fmcta_widget extends WP_Widget {
 
 			<div class="fm-step-3">
 
-				<h4 class="title fm-option-title <?php echo $this->get_field_id('fm-option-3');?>">Step 3: Customize
+				<h4 class="title fm-option-title fm-arrow <?php echo $this->get_field_id('fm-option-3');?>">Step 3: Customize
 					Your Content
 				</h4>
 
@@ -561,7 +561,7 @@ class fmcta_widget extends WP_Widget {
 			?>
 			<!--STEP 4 - Customize your Button -->
 			<div class="fm-step-4">
-				<h4 class="title fm-option-title <?php echo $this->get_field_id('fm-option-4');?>">Step 4:
+				<h4 class="title fm-option-title fm-arrow <?php echo $this->get_field_id('fm-option-4');?>">Step 4:
 					Customize Your Button</h4>
 
 				<div class="fm-step-4-options <?php echo $this->get_field_id('fm-step-4-options');?>">
@@ -621,7 +621,7 @@ class fmcta_widget extends WP_Widget {
 			<!--STEP Advanced-->
 			<div class="fm-step-5">
 				<!--Link Heading-->
-				<h4 class="title fm-option-title <?php echo $this->get_field_id('fm-option-5');?> fm-arrow-closed">Advanced
+				<h4 class="title fm-option-title fm-arrow <?php echo $this->get_field_id('fm-option-5');?> fm-arrow-closed">Advanced
 				</h4>
 
 				<div class="fm-step-5-options <?php echo $this->get_field_id('fm-step-5-options');?>">
@@ -771,89 +771,17 @@ class fmcta_widget extends WP_Widget {
 		$id    = $this->id;
 		$css   = <<<EOD
             <style>
-			.divide{
-				/*border-bottom:1px solid #7de0ff;*/
-				border-bottom:1px dotted #ccc;
-				box-shadow:0 1px 0 #fff;
-				width:100%;
-				height:1px;
-				margin:20px 0 20px 0;
-			}
 
-			a img{
-				border:none;
-			}
 			/*.$id-options{
 			    width:80%;
                 margin:-10px auto 0 auto;
 			}*/
-			.fm-arrow:before{
-			    content: "\\f140";
-			    font: 400 20px/1 dashicons;
-			}
-			.fm-arrow-open:before{
-			    content: "\\f142";
-			    font: 400 20px/1 dashicons;
-			}
-			.fm-option-title{
-			    cursor: pointer;
-			    border-bottom: 1px solid #e5e5e5;
-			    padding: 10px;
-			    margin:0;
-			}
-			.fm-step-1-options,
-			.fm-step-2-options,
-			.fm-step-3-options,
-			.fm-step-4-options,
-			.fm-step-5-options{
-			    display:none;
-			    padding: 0 10px;
-			}
-			.fm-step-1,
-			.fm-step-2,
-			.fm-step-3,
-			.fm-step-4,
-			.fm-step-5{
-			    background: #fafafa;
-			    border: 1px solid #e5e5e5;
-			    margin-top:10px;
-			    padding:0
-			}
-			.fmcta_image_href{
-			    height:30px;
-			}
-			.fmcta_upload{
-			    width:85px !important;
-			    height:30px !important;
-			    vertical-align:top !important;
-			    text-align:center;
-			}
 
-			.fmcta_order{
-				padding:10px;
-				text-align:center;
-				background: #ccc;
-				cursor: move;
-				box-sizing: border-box;
-			}
-			.fmcta_order:hover{
-				background: #ddd;
-			}
-			.fmcta_order_image{
-				padding: 50px;
-			}
-			.fmcta_order_description{
-				padding: 30px;
-			}
-			.ui-state-highlight {
-			    border: 1px dashed orange;
-			    height: 2em;
-			}
 
 		</style>
 EOD;
 
-		return $css;
+		//return $css;
 	}
 
 
