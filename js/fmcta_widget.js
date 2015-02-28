@@ -77,44 +77,36 @@ function fm_listen(fm_id, hide) {
 
         /*--Step 1 - Choose a Landing Page--*/
 
-        /*--Toggle Landing Page Options--*/
+        /*--Toggle Landing Page Options on load--*/
         //Hide custom title if the "default" is checked
-        if (fmcta_landing_option.eq(0).attr('checked') == "checked") {
+        if (fmcta_landing_option.val() == "default" ) {
             fmcta_landing_href.hide();
             fmcta_feature_id.show();
-        }
-        //Show body if the "custom" button is checked
-        if (fmcta_landing_option.eq(1).attr('checked') == "checked") {
+        } else {
             fmcta_landing_href.show();
-            //console.log('initial run through')
             fmcta_feature_id.hide();
         }
-        //Hide custom title when "default" is clicked
-        fmcta_landing_option.eq(0).on('click', function () {
-            fmcta_landing_href.hide();
-            fmcta_feature_id.show();
 
+        /*-- Toggle Landing Page Options on Change --*/
+        //Hide custom title when "default" is clicked
+        fmcta_landing_option.on('change', function () {
+
+            if( $(this).val() == "default"){
+                fmcta_landing_href.hide();
+                fmcta_feature_id.show();
+            } else{
+                fmcta_landing_href.show();
+                fmcta_feature_id.hide();
+            }
+
+            // @todo Change title option and description option to custom if the landing href is selected.
             //show featured image option in image section if clicked
-            fmcta_image_option_label.eq(1).show();
+            //fmcta_image_option_label.eq(1).show();
 
             //show post/page title option in content section if clicked
-            fmcta_heading_title_option_label.eq(1).show();
+            //fmcta_heading_title_option_label.eq(1).show();
 
-            fmcta_description_option_label.eq(1).show();
-        });
-        //Show custom title when "custom" is clicked
-        fmcta_landing_option.eq(1).on('click', function () {
-            fmcta_landing_href.show();
-            //console.log('click');
-            fmcta_feature_id.hide();
-
-            //hide featured image option in image section if clicked
-            fmcta_image_option_label.eq(1).hide();
-
-            //hide post/page title option in content section if clicked
-            fmcta_heading_title_option_label.eq(1).hide();
-
-            fmcta_description_option_label.eq(1).hide();
+            //fmcta_description_option_label.eq(1).show();
         });
 
 

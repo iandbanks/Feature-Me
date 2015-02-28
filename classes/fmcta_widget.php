@@ -205,38 +205,29 @@ class fmcta_widget extends WP_Widget {
 
 				<div class="<?php echo $this->get_field_id('fm-step-1-options');?> fm-step-1-options">
 
-					<p>
-						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_landing_option' ) ?>"
-						       class="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>" value="default"
-						       id="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>_1"
-							<?php
-							if ( isset ( $instance['fmcta_landing_option'] ) ) {
-								if ( $instance['fmcta_landing_option'] == "default" || $instance['fmcta_landing_option'] == "" ) {
-									echo 'checked="checked"';
-								}
-							} else {
-								echo 'checked="checked"';
-							} ?> /><!--/fm_landing_1-->
-
-						<label for="<?php echo $this->get_field_id( 'fmcta_landing_option' ); ?>_1">Page/Post on this
-							Website</label></p>
-
-					<p>
-						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_landing_option' ) ?>"
-						       class="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>" value="external"
-						       id="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>_2"
-							<?php
-							if ( isset ( $instance['fmcta_landing_option'] ) ) {
-								if ( $instance['fmcta_landing_option'] == "external" ) {
-									echo 'checked="checked"';
-								}
-							} ?> /><!--/fm_landing_2-->
-						<label for="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>_2">External
-							Website</label>
-					</p>
+                    <p>
+                        <label for="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>"><strong class="description">
+                                What kind of landing page do you want to link to?</strong></label><br/>
+                        <select name="<?php echo $this->get_field_name( 'fmcta_landing_option' ) ?>" class="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>" style="width: 100%;">
+                            <option <?php if ( isset ( $instance['fmcta_landing_option'] ) ) {
+                                if ( $instance['fmcta_landing_option'] == "default" || $instance['fmcta_landing_option'] == "" ) {
+                                    echo 'selected="selected"';
+                                }
+                            } else {
+                                echo 'checked="checked"';
+                            } ?> value="default">Page/Post on this Website</option>
+                            <option <?php if ( isset ( $instance['fmcta_landing_option'] ) ) {
+                                if ( $instance['fmcta_landing_option'] == "default" || $instance['fmcta_landing_option'] == "" ) {
+                                    echo 'selected="selected"';
+                                }
+                            }?> value="external">External Website</option>
+                        </select>
+                    </p>
 
                     <div class="<?php echo $this->get_field_id( 'fmcta_landing_href' ); ?>">
                         <p>
+                            <label for="<?php echo $this->get_field_id( 'fmcta_landing_href' ); ?>"><strong
+                                    class="description">Enter an external URL</strong><br/></label>
                         <select name="<?php echo $this->get_field_name('fmcta_landing_href_protocol');?>" style="width:23%; display: inline-block;">
                             <option <?php if( isset( $instance['fmcta_landing_href_protocol'] ) ) { if( $instance['fmcta_landing_href_protocol'] == "http://" ){ echo 'selected="selected"'; } } else{ echo 'selected="selected"'; } ?> value="http://">http://</option>
                             <option <?php if( isset( $instance['fmcta_landing_href_protocol'] ) ) { if( $instance['fmcta_landing_href_protocol'] == "https://" ){ echo 'selected="selected"'; } } ?> value="https://">https://</option>
