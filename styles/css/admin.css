@@ -62,15 +62,12 @@ a img {
   background: #ccc;
   cursor: move;
   box-sizing: border-box; }
-
-.fmcta_order:hover {
-  background: #ddd; }
-
-.fmcta_order_image {
-  padding: 50px; }
-
-.fmcta_order_description {
-  padding: 30px; }
+  .fmcta_order:hover {
+    background: #ddd; }
+  .fmcta_order.fmcta_order_image {
+    padding: 50px; }
+  .fmcta_order.fmcta_order_description {
+    padding: 30px; }
 
 .ui-state-highlight {
   border: 1px dashed orange;
