@@ -178,13 +178,12 @@ class fmcta_widget extends WP_Widget {
 		// Convert previous $instance data to new $instances data for form.
 		$this->convert_variables();
 
+        // Access the global post variable for later use in queries
+        global $post;
 
-		$fmcta_feature_id_id;
-		if ( isset( $instance['fmcta_feature_id'] ) ) {
-			$fmcta_feature_id_id = $instance['fmcta_feature_id'];
-		}
+
 		//echo $instance variable for easier development
-		//echo '<pre>' . print_r( $instance, true ) . '</pre>';
+		echo '<pre>' . print_r( $instance, true ) . '</pre>';
 
 		//echo $this->generateCSS(); //generate CSS to page
 
@@ -253,26 +252,8 @@ class fmcta_widget extends WP_Widget {
 						        class="feature-me-select"
 						        style="width:100%;" id="<?php echo $this->get_field_id( 'fmcta_feature_id' ) ?>">
 
-							<option selected="selected" value="<?php
-							if ( isset ( $instance['fmcta_feature_id'] ) ) {
-								echo esc_attr( $instance['fmcta_feature_id'] );
-							} ?>"><?php
-								if ( ! empty( $fmcta_feature_id_id ) ) {
-									$selected_feature = new WP_QUERY( array(
-										'p'              => $fmcta_feature_id_id,
-										//'post_type'      => array( 'post', 'page' ),
-										'posts_per_page' => '1'
-									) );
-									while ( $selected_feature->have_posts() ): $selected_feature->the_post();
-										echo the_title();
 
-									endwhile;
-									wp_reset_query();
-								} else {
-									echo 'Select a Post or Page';
-								}
-								?>
-							</option>
+
 
 							<optgroup label="Pages">
 								<?php
@@ -286,9 +267,10 @@ class fmcta_widget extends WP_Widget {
 									'post_type'      => 'page'
 								) );
 								while ( $fmcta_feature_id_list_pages->have_posts() ): $fmcta_feature_id_list_pages->the_post();
+                                    $post_id = $post->ID;
 									?>
 
-									<option value="<?php echo the_ID(); ?>"><?php echo the_title(); ?></option>
+									<option <?php if( isset( $instance['fmcta_feature_id'] ) && $instance['fmcta_feature_id'] == $post_id ) { echo 'selected="selected"'; }?> value="<?php echo the_ID(); ?>"><?php echo the_title(); ?></option>
 
 								<?php endwhile;
 								wp_reset_query(); ?>
@@ -307,9 +289,10 @@ class fmcta_widget extends WP_Widget {
 								) );
 
 								while ( $fmcta_feature_id_list_posts->have_posts() ): $fmcta_feature_id_list_posts->the_post();
+                                    $post_id = $post->ID;
 									?>
 
-									<option value="<?php echo the_ID(); ?>"><?php echo the_title(); ?></option>
+									<option <?php if( isset($instance['fmcta_feature_id'] ) && $instance['fmcta_feature_id'] == $post_id  ) { echo 'selected="selected"'; }?> value="<?php echo the_ID(); ?>"><?php echo the_title(); ?></option>
 
 								<?php endwhile;
 								wp_reset_query(); ?>
