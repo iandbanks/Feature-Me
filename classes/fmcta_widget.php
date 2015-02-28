@@ -184,7 +184,7 @@ class fmcta_widget extends WP_Widget {
 			$fmcta_feature_idd_id = $instance['fmcta_feature_id'];
 		}
 		//echo $instance variable for easier development
-		echo '<pre>' . print_r( $instance, true ) . '</pre>';
+		//echo '<pre>' . print_r( $instance, true ) . '</pre>';
 
 		echo $this->generateCSS(); //generate CSS to page
 		/**
@@ -201,10 +201,11 @@ class fmcta_widget extends WP_Widget {
 			?>
 			<div class="fm-step-1">
 
-				<h4 class="title fm-option-title fm-option-1">
+				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-1">
 					<span class="fm-arrow">&#x25bc;</span> Step 1: Choose a Landing Page</h4>
 
-				<div class="fm-step-1-options">
+				<div class="<?php echo $this->get_field_id();?>fm-step-1-options fm-step-1-options">
+
 					<p>
 						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_landing_option' ) ?>"
 						       class="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>" value="default"
@@ -328,11 +329,11 @@ class fmcta_widget extends WP_Widget {
 			<!--Step 2: Choose an Image-->
 			<div class="fm-step-2">
 
-				<h4 class="title fm-option-title fm-option-2"><span class="fm-arrow">&#x25bc;</span> Step 2: Choose an
+				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-2"><span class="fm-arrow">&#x25bc;</span> Step 2: Choose an
 					Image
 				</h4>
 
-				<div class="fm-step-2-options">
+				<div class="fm-step-2-options <?php echo $this->get_field_id();?>fm-step-2-options">
 					<p class="description" style="margin-top:15px; padding:0;">What image do you want to use in this
 						Call To
 						Action?</p>
@@ -413,11 +414,11 @@ class fmcta_widget extends WP_Widget {
 
 			<div class="fm-step-3">
 
-				<h4 class="title fm-option-title fm-option-3"><span class="fm-arrow">&#x25bc;</span> Step 3: Customize
+				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-3"><span class="fm-arrow">&#x25bc;</span> Step 3: Customize
 					Your Content
 				</h4>
 
-				<div class="fm-step-3-options">
+				<div class="fm-step-3-options <?php echo $this->get_field_id();?>fm-step-3-options">
 					<h4 class="title">CTA Title</h4>
 
 					<p><!--Use a Custom Title-->
@@ -561,10 +562,10 @@ class fmcta_widget extends WP_Widget {
 			?>
 			<!--STEP 4 - Customize your Button -->
 			<div class="fm-step-4">
-				<h4 class="title fm-option-title fm-option-4"><span class="fm-arrow">&#x25bc;</span> Step 4:
+				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-4"><span class="fm-arrow">&#x25bc;</span> Step 4:
 					Customize Your Button</h4>
 
-				<div class="fm-step-4-options">
+				<div class="fm-step-4-options <?php echo $this->get_field_id();?>fm-step-4-options">
 
                     <h4 class="title">Choose a Button Type</h4>
 
@@ -616,15 +617,15 @@ class fmcta_widget extends WP_Widget {
 			<!--/.fm-step-4-->
 
 			<?php
-			/********** Step 5 - Advanced**********/
+			/********** Step 5 - Advanced **********/
 			?>
 			<!--STEP Advanced-->
-			<div class="fm-step-advanced">
+			<div class="fm-step-5">
 				<!--Link Heading-->
-				<h4 class="title fm-option-title fm-option-advanced"><span class="fm-arrow">&#x25bc;</span> Advanced
+				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-5"><span class="fm-arrow">&#x25bc;</span> Advanced
 				</h4>
 
-				<div class="fm-step-advanced-options">
+				<div class="fm-step-5-options <?php echo $this->get_field_id();?>fm-step-5-options">
 					<p>Title / Image Placement <br/>
 
 						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_image_placement' ); ?>"
@@ -691,11 +692,8 @@ class fmcta_widget extends WP_Widget {
 							       echo esc_attr( $instance['fmcta_class'] );
 						       } ?>" style="width:100%;"/>
 					</p>
-
-					<div class="divide">&nbsp;</div>
-
 				</div>
-				<!--/.fm-step-advanced-options-->
+				<!--/.fm-step-5-options-->
 			</div>
 			<!--/.fm-step-advanced-->
 
@@ -807,7 +805,7 @@ class fmcta_widget extends WP_Widget {
 			.fm-step-2-options,
 			.fm-step-3-options,
 			.fm-step-4-options,
-			.fm-step-advanced-options{
+			.fm-step-5-options{
 			    display:none;
 			    padding: 0 10px;
 			}
@@ -815,7 +813,7 @@ class fmcta_widget extends WP_Widget {
 			.fm-step-2,
 			.fm-step-3,
 			.fm-step-4,
-			.fm-step-advanced{
+			.fm-step-5{
 			    background: #fafafa;
 			    border: 1px solid #e5e5e5;
 			    margin-top:10px;
