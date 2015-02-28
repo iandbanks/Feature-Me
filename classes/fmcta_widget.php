@@ -179,9 +179,9 @@ class fmcta_widget extends WP_Widget {
 		$this->convert_variables();
 
 
-		$fmcta_feature_idd_id;
+		$fmcta_feature_id_id;
 		if ( isset( $instance['fmcta_feature_id'] ) ) {
-			$fmcta_feature_idd_id = $instance['fmcta_feature_id'];
+			$fmcta_feature_id_id = $instance['fmcta_feature_id'];
 		}
 		//echo $instance variable for easier development
 		//echo '<pre>' . print_r( $instance, true ) . '</pre>';
@@ -235,14 +235,19 @@ class fmcta_widget extends WP_Widget {
 							Website</label>
 					</p>
 
-					<p><input type="text" name="<?php echo $this->get_field_name( 'fmcta_landing_href' ); ?>"
+					<p>
+                        <select name="<?php echo $this->get_field_name('fmcta_landing_href_protocol');?>" style="width:23%; display: inline-block;">
+                            <option <?php if( isset( $instance['fmcta_landing_href_protocol'] ) ) { if( $instance['fmcta_landing_href_protocol'] == "http://" ){ echo 'selected="selected"'; } } else{ echo 'selected="selected"'; } ?> value="http://">http://</option>
+                            <option <?php if( isset( $instance['fmcta_landing_href_protocol'] ) ) { if( $instance['fmcta_landing_href_protocol'] == "https://" ){ echo 'selected="selected"'; } } ?> value="https://">https://</option>
+                        </select>
+                        <input type="text" name="<?php echo $this->get_field_name( 'fmcta_landing_href' ); ?>"
 					          id="<?php echo $this->get_field_id( 'fmcta_landing_href' ); ?>"
 					          class="<?php echo $this->get_field_id( 'fmcta_landing_href' ); ?>"
 					          value="<?php if ( isset ( $instance['fmcta_landing_href'] ) ) {
 						          echo esc_attr( $instance['fmcta_landing_href'] );
 					          } ?>"
-					          placeholder="http://example.com, example.com, /"
-					          style="width:100%;"/></p>
+					          placeholder="example.com, www.example.com"
+					          style="width: 73%; display: inline-block; height: 28px; vertical-align: middle;"/></p>
 
 
 					<p class="<?php echo $this->get_field_id( 'fmcta_feature_id' ) ?>">
@@ -257,9 +262,9 @@ class fmcta_widget extends WP_Widget {
 							if ( isset ( $instance['fmcta_feature_id'] ) ) {
 								echo esc_attr( $instance['fmcta_feature_id'] );
 							} ?>"><?php
-								if ( ! empty( $fmcta_feature_idd_id ) ) {
+								if ( ! empty( $fmcta_feature_id_id ) ) {
 									$selected_feature = new WP_QUERY( array(
-										'p'              => $fmcta_feature_idd_id,
+										'p'              => $fmcta_feature_id_id,
 										'post_type'      => array( 'post', 'page' ),
 										'posts_per_page' => '1'
 									) );
@@ -746,7 +751,7 @@ class fmcta_widget extends WP_Widget {
 						echo $before_title . '<a href="' . get_permalink($instance['fmcta_feature_id']) . '"\>' . get_the_title($instance['fmcta_feature_id'] ) . '</a>' . $after_title;
 					} //Generate custom link via text fmcta_landing_href field
 					else {
-						echo $before_title . '<a href="' . $instance['fmcta_landing_href'] . '">' . $instance['fmcta_heading_title_content'] . '</a>' . $after_title;
+						echo $before_title . '<a href="' . $instance['fmcta_landing_href_protocol'] . $instance['fmcta_landing_href'] . '">' . $instance['fmcta_heading_title_content'] . '</a>' . $after_title;
 					}
 				} else {
 					echo $before_title . $instance['fmcta_heading_title_content'] . $after_title;
@@ -763,7 +768,7 @@ class fmcta_widget extends WP_Widget {
 						echo $before_title . '<a href="' . get_permalink() . '"\>' . $instance['fmcta_heading_title_content'] . '</a>' . $after_title;
 					} //Generate custom link via text fmcta_landing_href field
 					else {
-						echo $before_title . '<a href="' . $instance['fmcta_landing_href'] . '">' . $instance['fmcta_heading_title_content'] . '</a>' . $after_title;
+						echo $before_title . '<a href="' . $instance['fmcta_landing_href_protocol'] . $instance['fmcta_landing_href'] . '">' . $instance['fmcta_heading_title_content'] . '</a>' . $after_title;
 					}
 				} else {
 					echo $before_title . $instance['fmcta_heading_title_content'] . $after_title;
@@ -788,14 +793,14 @@ class fmcta_widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function fmcta_render_image( $instance ) {
-		echo '<div class="fmcta_feature_idd_image">';
+		echo '<div class="fmcta_feature_id_image">';
 
 		if ( $instance['fmcta_image_option'] == 'feature' ) {
 			?>
 		<a href="<?php if ( $instance['fmcta_landing_option'] == "default" ) {
 			the_permalink();
 		} else {
-			echo $instance['fmcta_landing_href'];
+			echo $instance['fmcta_landing_href_protocol'] . $instance['fmcta_landing_href'];
 		} ?>" title="<?php echo $instance['fmcta_heading_title_content']; ?>">
 			<?php the_post_thumbnail( $instance['fmcta_feature_id'], array( 'class' => 'fmcta_thumb' ) );
 			?></a><?php
@@ -804,14 +809,14 @@ class fmcta_widget extends WP_Widget {
 			<a href="<?php if ( $instance['fmcta_landing_option'] == "default" ) {
 				echo get_permalink($instance['fmcta_feature_id']);
 			} else {
-				echo $instance['fmcta_landing_href'];
+				echo $instance['fmcta_landing_href_protocol'] . $instance['fmcta_landing_href'];
 			} ?>" title="<?php echo $instance['fmcta_heading_title_content']; ?>">
 				<img src="<?php echo $instance['fmcta_image_href']; ?>"
 				     alt="<?php echo $instance['fmcta_heading_title_content']; ?>"/></a>
 
 		<?php
 		}
-		echo '</div><!--/.fmcta_feature_idd_image-->';
+		echo '</div><!--/.fmcta_feature_id_image-->';
 	}
 
 	public function fmcta_render_description($instance){
@@ -854,7 +859,7 @@ class fmcta_widget extends WP_Widget {
 		if ( $instance['fmcta_landing_option'] == 'default' ) {
 			$url = get_permalink( $instance['fmcta_feature_id'] );
 		} else {
-			$url = $instance['fmcta_landing_href'];
+			$url = $instance['fmcta_landing_href_protocol'] . $instance['fmcta_landing_href'];
 		}
 
 		//Get the appropriate button type.
