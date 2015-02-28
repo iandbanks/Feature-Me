@@ -127,7 +127,7 @@ class fmcta_widget extends WP_Widget {
 
 
 		?>
-		<article class="feature-me <?php echo $instance['class']; ?>">
+		<article class="feature-me <?php if( isset( $instance['class'] ) ){ echo $instance['class']; }?>">
 
 
 			<?php echo $before_widget;
@@ -200,11 +200,10 @@ class fmcta_widget extends WP_Widget {
 			/**********Step 1**********/
 			?>
 			<div class="fm-step-1">
+				<h4 class="title fm-option-title fm-arrow <?php echo $this->get_field_id('fm-option-1')?>">
+					Step 1: Choose a Landing Page</h4>
 
-				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-1">
-					<span class="fm-arrow">&#x25bc;</span> Step 1: Choose a Landing Page</h4>
-
-				<div class="<?php echo $this->get_field_id();?>fm-step-1-options fm-step-1-options">
+				<div class="<?php echo $this->get_field_id('fm-step-1-options');?> fm-step-1-options">
 
 					<p>
 						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_landing_option' ) ?>"
@@ -329,11 +328,11 @@ class fmcta_widget extends WP_Widget {
 			<!--Step 2: Choose an Image-->
 			<div class="fm-step-2">
 
-				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-2"><span class="fm-arrow">&#x25bc;</span> Step 2: Choose an
+				<h4 class="title fm-option-title <?php echo $this->get_field_id('fm-option-2');?>">Step 2: Choose an
 					Image
 				</h4>
 
-				<div class="fm-step-2-options <?php echo $this->get_field_id();?>fm-step-2-options">
+				<div class="fm-step-2-options <?php echo $this->get_field_id('fm-step-2-options');?>">
 					<p class="description" style="margin-top:15px; padding:0;">What image do you want to use in this
 						Call To
 						Action?</p>
@@ -414,11 +413,11 @@ class fmcta_widget extends WP_Widget {
 
 			<div class="fm-step-3">
 
-				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-3"><span class="fm-arrow">&#x25bc;</span> Step 3: Customize
+				<h4 class="title fm-option-title <?php echo $this->get_field_id('fm-option-3');?>">Step 3: Customize
 					Your Content
 				</h4>
 
-				<div class="fm-step-3-options <?php echo $this->get_field_id();?>fm-step-3-options">
+				<div class="fm-step-3-options <?php echo $this->get_field_id('fm-step-3-options');?>">
 					<h4 class="title">CTA Title</h4>
 
 					<p><!--Use a Custom Title-->
@@ -562,14 +561,14 @@ class fmcta_widget extends WP_Widget {
 			?>
 			<!--STEP 4 - Customize your Button -->
 			<div class="fm-step-4">
-				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-4"><span class="fm-arrow">&#x25bc;</span> Step 4:
+				<h4 class="title fm-option-title <?php echo $this->get_field_id('fm-option-4');?>">Step 4:
 					Customize Your Button</h4>
 
-				<div class="fm-step-4-options <?php echo $this->get_field_id();?>fm-step-4-options">
+				<div class="fm-step-4-options <?php echo $this->get_field_id('fm-step-4-options');?>">
 
                     <h4 class="title">Choose a Button Type</h4>
 
-                        <select name="<?php echo $this->get_field_name( 'fmcta_button_option' ); ?>" class="<?php echo $this->get_field_id(); ?>fmcta_button_option" style="width: 100%;">
+                        <select name="<?php echo $this->get_field_name( 'fmcta_button_option' ); ?>" class="<?php echo $this->get_field_id('fmcta_button_option'); ?>" style="width: 100%;">
                             <option <?php if( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "text" ) { echo 'selected="selected"'; } ?> value="text">Text Link</option>
                             <option <?php if( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "css" ) { echo 'selected="selected"'; } ?> value="css">CSS Button</option>
                             <option <?php if( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "uploadt" ) { echo 'selected="selected"'; } ?> value="upload">Upload Button Image</option>
@@ -595,7 +594,7 @@ class fmcta_widget extends WP_Widget {
                     </div>
 
                     <!-- Button Title -->
-                    <div class="<?php echo $this->get_field_id();?>fmcta_button_title_field">
+                    <div class="<?php echo $this->get_field_id('fmcta_button_title_field');?>">
                         <h4 class="title">CTA Button Title</h4>
 
 
@@ -622,10 +621,10 @@ class fmcta_widget extends WP_Widget {
 			<!--STEP Advanced-->
 			<div class="fm-step-5">
 				<!--Link Heading-->
-				<h4 class="title fm-option-title <?php echo $this->get_field_id();?>fm-option-5"><span class="fm-arrow">&#x25bc;</span> Advanced
+				<h4 class="title fm-option-title <?php echo $this->get_field_id('fm-option-5');?> fm-arrow-closed">Advanced
 				</h4>
 
-				<div class="fm-step-5-options <?php echo $this->get_field_id();?>fm-step-5-options">
+				<div class="fm-step-5-options <?php echo $this->get_field_id('fm-step-5-options');?>">
 					<p>Title / Image Placement <br/>
 
 						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_image_placement' ); ?>"
@@ -769,9 +768,7 @@ class fmcta_widget extends WP_Widget {
 	 */
 	private
 	function generateCSS() {
-		//@todo utilize dashicons for stars http://melchoyce.github.io/dashicons/
 		$id    = $this->id;
-		$stars = plugins_url( 'feature-me/img/star.png' );
 		$css   = <<<EOD
             <style>
 			.divide{
@@ -786,14 +783,17 @@ class fmcta_widget extends WP_Widget {
 			a img{
 				border:none;
 			}
-			.$id-options{
-			    /*display:none;*/
+			/*.$id-options{
 			    width:80%;
                 margin:-10px auto 0 auto;
+			}*/
+			.fm-arrow:before{
+			    content: "\\f140";
+			    font: 400 20px/1 dashicons;
 			}
-			.fm-arrow{
-			    font-size:75%;
-			    color: #c0c0c0;
+			.fm-arrow-open:before{
+			    content: "\\f142";
+			    font: 400 20px/1 dashicons;
 			}
 			.fm-option-title{
 			    cursor: pointer;
@@ -951,18 +951,21 @@ EOD;
 	public function fmcta_render_description($instance){
 		/*--CTA Description--*/
 
-		switch ( $instance['fmcta_description_option'] ) {
-			case 'excerpt':
-				$the_post = get_post($instance['fmcta_feature_id']);
-				setup_postdata($the_post);
-				echo the_excerpt();
-				break;
-			case 'custom':
-				echo "<p>" . $instance['fmcta_description_content'] . "</p>";
-				break;
-			case 'none':
-				break;
-		}
+        if( isset($instance['fmcta_desctiption_option'])){
+            switch ( $instance['fmcta_description_option'] ) {
+                case 'excerpt':
+                    $the_post = get_post($instance['fmcta_feature_id']);
+                    setup_postdata($the_post);
+                    echo the_excerpt();
+                    break;
+                case 'custom':
+                    echo "<p>" . $instance['fmcta_description_content'] . "</p>";
+                    break;
+                case 'none':
+                    break;
+            }
+        }
+
 	}
 
 	public function fmcta_render_button( $instance ) {

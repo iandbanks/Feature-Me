@@ -294,6 +294,7 @@ function fm_cta_menu_click(fm_id) {
     jQuery(function ($) {
         $('.' + fm_id + '-fm-option-1').on('click', function () {
             $('.' + fm_id + '-fm-step-1-options').slideToggle();
+            $(this).toggleClass('fm-arrow-open');
         });
 
         $('.' + fm_id + '-fm-option-2').on('click', function () {
