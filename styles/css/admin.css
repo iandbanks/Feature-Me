@@ -46,6 +46,12 @@ a img {
   border: 1px solid #e5e5e5;
   margin-top: 10px;
   padding: 0; }
+  .fm-step-1 > h4.fm-option-title,
+  .fm-step-2 > h4.fm-option-title,
+  .fm-step-3 > h4.fm-option-title,
+  .fm-step-4 > h4.fm-option-title,
+  .fm-step-5 > h4.fm-option-title {
+    background: #e3f4e6; }
 
 .fmcta_image_href {
   height: 30px; }
