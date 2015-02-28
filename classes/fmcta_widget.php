@@ -397,10 +397,10 @@ class fmcta_widget extends WP_Widget
                                    echo $instance['fmcta_image_href'];
                                } else {
                                    echo '';
-                               } ?>" placeholder="Paste URI or Click &rarr;"/>
-                        <input class="button fmcta_upload <?php echo $this->get_field_id('fmcta_upload'); ?>"
+                               } ?>" placeholder="Paste URI or Click &rarr;" style="width: 75%; vertical-align: middle;"/>
+                        <input type="button" class="button fmcta_upload <?php echo $this->get_field_id('fmcta_upload'); ?>"
                                name="<?php echo $this->get_field_name('fmcta_upload'); ?>"
-                               id="<?php echo $this->get_field_id('fmcta_upload') ?>" value="upload"/>
+                               id="<?php echo $this->get_field_id('fmcta_upload') ?>" value="Upload"/>
                     </p>
                 </div>
                 <!--/.fm-step-2-options-->
