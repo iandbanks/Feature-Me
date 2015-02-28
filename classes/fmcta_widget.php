@@ -841,8 +841,18 @@ class fmcta_widget extends WP_Widget
             } else {
                 echo $instance['fmcta_landing_href_protocol'] . $instance['fmcta_landing_href'];
             } ?>" title="<?php echo $instance['fmcta_heading_title_content']; ?>">
-                <img src="<?php echo $instance['fmcta_image_href']; ?>"
-                     alt="<?php echo $instance['fmcta_heading_title_content']; ?>"/></a>
+                <?php
+
+                // Use HTTPS if on secure server
+                if ( isset( $_SERVER['HTTPS' ] ) ){
+                    $img_url = preg_replace('/http:/i','https:',$instance['fmcta_image_href'] );
+                }
+                else{
+                    $img_url = $instance['fmcta_image_href'];
+                }
+                ?>
+
+                <img src="<?php echo $img_url; ?>" alt="<?php echo $instance['fmcta_heading_title_content']; ?>"/></a>
 
         <?php
         } else if($instance['fmcta_image_option'] == "none"){
