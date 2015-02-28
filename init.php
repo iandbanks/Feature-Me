@@ -91,7 +91,7 @@ $fm->init();
 function add_admin_scripts( $hook ) {
 	if ( $hook == 'widgets.php' ) {
 		wp_enqueue_media();
-		wp_enqueue_script( 'fmcta_widget', plugin_dir_url( __FILE__ ) . 'js/min/fmcta_widget-min.js' );
+		wp_enqueue_script( 'fmcta_widget', plugin_dir_url( __FILE__ ) . 'js/fmcta_widget.min.js' );
 		wp_enqueue_style( 'fmcta_widget_style_admin', plugin_dir_url( __FILE__ ) . 'styles/css/admin.css' );
 	}
 }
