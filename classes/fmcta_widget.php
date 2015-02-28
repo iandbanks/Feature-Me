@@ -209,15 +209,16 @@ class fmcta_widget extends WP_Widget {
                         <label for="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>"><strong class="description">
                                 What kind of landing page do you want to link to?</strong></label><br/>
                         <select name="<?php echo $this->get_field_name( 'fmcta_landing_option' ) ?>" class="<?php echo $this->get_field_id( 'fmcta_landing_option' ) ?>" style="width: 100%;">
-                            <option <?php if ( isset ( $instance['fmcta_landing_option'] ) ) {
-                                if ( $instance['fmcta_landing_option'] == "default" || $instance['fmcta_landing_option'] == "" ) {
+                            <option <?php
+                            if ( isset ( $instance['fmcta_landing_option'] ) ) {
+                                if ( $instance['fmcta_landing_option'] == "default" ) {
                                     echo 'selected="selected"';
                                 }
                             } else {
                                 echo 'checked="checked"';
                             } ?> value="default">Page/Post on this Website</option>
                             <option <?php if ( isset ( $instance['fmcta_landing_option'] ) ) {
-                                if ( $instance['fmcta_landing_option'] == "default" || $instance['fmcta_landing_option'] == "" ) {
+                                if ( $instance['fmcta_landing_option'] == "external" ) {
                                     echo 'selected="selected"';
                                 }
                             }?> value="external">External Website</option>
@@ -259,7 +260,7 @@ class fmcta_widget extends WP_Widget {
 								if ( ! empty( $fmcta_feature_id_id ) ) {
 									$selected_feature = new WP_QUERY( array(
 										'p'              => $fmcta_feature_id_id,
-										'post_type'      => array( 'post', 'page' ),
+										//'post_type'      => array( 'post', 'page' ),
 										'posts_per_page' => '1'
 									) );
 									while ( $selected_feature->have_posts() ): $selected_feature->the_post();
