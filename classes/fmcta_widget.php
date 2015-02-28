@@ -797,7 +797,7 @@ class fmcta_widget extends WP_Widget {
 		} else {
 			echo $instance['fmcta_landing_href'];
 		} ?>" title="<?php echo $instance['fmcta_heading_title_content']; ?>">
-			<?php the_post_thumbnail( $instance->thumb_size, array( 'class' => 'fmcta_thumb' ) );
+			<?php the_post_thumbnail( $instance['fmcta_feature_id'], array( 'class' => 'fmcta_thumb' ) );
 			?></a><?php
 		} else if ( $instance['fmcta_image_option'] == "upload" ) {
 			?>
