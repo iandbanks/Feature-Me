@@ -1,7 +1,7 @@
 /**
  * This file gets all Feature Me widgets on page and binds actions to the element ID's.
  */
-jQuery(document).ready(function($){
+jQuery(document).ready(function ($) {
 
     /*--Script Setup--*/
     //Launch on initial page load
@@ -13,9 +13,9 @@ jQuery(document).ready(function($){
     //fmcta_sortable();
 
     //detect ajax calls...launch on widget save event
-    jQuery(document).ajaxSuccess(function(evt, request, settings) {
+    jQuery(document).ajaxSuccess(function (evt, request, settings) {
         var widget_id_base = 'feature_me';
-        if(settings.data.search('action=save-widget') != -1 && settings.data.search('id_base=' + widget_id_base) != -1) {
+        if (settings.data.search('action=save-widget') != -1 && settings.data.search('id_base=' + widget_id_base) != -1) {
             fmcta_get_ids(); //get id's for each feature me widget
             fm_cta_menu_click(); //launch menu
             fmcta_image_uploader('fm-step-2-options'); //launch image uploader
@@ -28,49 +28,51 @@ jQuery(document).ready(function($){
 });
 
 
+function fm_listen(fm_id, hide) {
+    console.log("fm_listen launched for id: " + fm_id);
 
-function fm_listen(fm_id,hide){
-    console.log("fm_listen launched for id: "+fm_id);
-
-    jQuery(function($){
+    jQuery(function ($) {
 
         /*--Cache Variables--*/
 
         // Sortable
-        $('.' +fm_id+"-fmcta_element_order").sortable({
+        var fmcta_sortable = $('.' + fm_id + "-fmcta_element_order"); // Gets the sortable elements for each Feature Me Widget
+        fmcta_sortable.sortable({
             placeholder: "ui-state-highlight",
             cursor: "move"
         });
-        $('.' +fm_id+"-fmcta_element_order").disableSelection();
+        fmcta_sortable.disableSelection();
 
         //Step 1 - Choose a Landing Page
-        var fmcta_landing_option = $("."+fm_id+"-fmcta_landing_option");
-        var fmcta_landing_href = $("."+fm_id+"-fmcta_landing_href");
-        var fmcta_feature_id = $("."+fm_id+"-fmcta_feature_id");
+        var fmcta_landing_option = $("." + fm_id + "-fmcta_landing_option");
+        var fmcta_landing_href = $("." + fm_id + "-fmcta_landing_href");
+        var fmcta_feature_id = $("." + fm_id + "-fmcta_feature_id");
 
         //Step 2 - Select an Image
-        var fmcta_image_option = $("."+fm_id+"-fmcta_image_option");
-        var fmcta_image_option_label = $("."+fm_id+"-fmcta_image_option_label");
-        var fmcta_image_href = $("."+fm_id+"-fmcta_image_href");
-        var fmcta_image_uploader_label = $("."+fm_id+"-fmcta_image_uploader");
+        var fmcta_image_option = $("." + fm_id + "-fmcta_image_option");
+        var fmcta_image_option_label = $("." + fm_id + "-fmcta_image_option_label");
+        var fmcta_image_href = $("." + fm_id + "-fmcta_image_href");
+        var fmcta_image_uploader_label = $("." + fm_id + "-fmcta_image_uploader");
 
         //Step 3 - Customize Content
-        var fmcta_heading_title_option = $("."+fm_id+"-fmcta_heading_title_option"); //title options
-        var fmcta_heading_title_option_label = $("."+fm_id+"-fmcta_heading_title_option_label"); //title options label
-        var fmcta_heading_title_content = $("#"+fm_id+"-fmcta_heading_title_content"); //title content
-        var fmcta_description_option = $("."+fm_id+"-fmcta_description_option"); //description options
-        var fmcta_description_option_label = $("."+fm_id+"-fmcta_description_option_label"); //description options label
-        var fmcta_description_content = $("."+fm_id+"-fmcta_description_content"); //description content
+        var fmcta_heading_title_option = $("." + fm_id + "-fmcta_heading_title_option"); //title options
+        var fmcta_heading_title_option_label = $("." + fm_id + "-fmcta_heading_title_option_label"); //title options label
+        var fmcta_heading_title_content = $("#" + fm_id + "-fmcta_heading_title_content"); //title content
+        var fmcta_description_option = $("." + fm_id + "-fmcta_description_option"); //description options
+        var fmcta_description_option_label = $("." + fm_id + "-fmcta_description_option_label"); //description options label
+        var fmcta_description_content = $("." + fm_id + "-fmcta_description_content"); //description content
 
         //Step 4 - Choose a Button
-        var fmcta_button_uploader = $("."+fm_id+"-fmcta_button_uploader");
+        var fmcta_button_option = $("." + fm_id + "-fmcta_button_option"); // Get the select menu for button options
+        var fmcta_button_uploader = $("." + fm_id + "-fmcta_button_uploader"); // Get the button image uploader field
+        var fmcta_button_title_field = $("." + fm_id + "-fmcta_button_title_field"); // The div containing the button title field
 
-        var defaultTitle= $("#"+fm_id+"-defaultTitle");
-        var type = $("."+fm_id+"-type");
-        var type_link = $("."+fm_id+"-type_link");
+        var defaultTitle = $("#" + fm_id + "-defaultTitle");
+        var type = $("." + fm_id + "-type");
+        var type_link = $("." + fm_id + "-type_link");
 
 
-        var linkURL = $("#"+fm_id+"-linkURL");
+        var linkURL = $("#" + fm_id + "-linkURL");
 
         var currentSelection;
 
@@ -116,38 +118,38 @@ function fm_listen(fm_id,hide){
             fmcta_description_option_label.eq(1).hide();
         });
 
+
         /*--Step 2 - Select an image--*/
 
         /*--Toggle Image Options--*/
 
         //Since external landing pages don't have featured images, hide image option for featured post selected.
-        if(fmcta_landing_option.eq(1).attr('checked')=='checked'){
+        if (fmcta_landing_option.eq(1).attr('checked') == 'checked') {
             fmcta_image_option.eq(1).hide();
         }
-        if(fmcta_landing_option.eq(0).attr('checked')=='checked'){
+        if (fmcta_landing_option.eq(0).attr('checked') == 'checked') {
             fmcta_image_option.eq(1).show();
         }
-        if(fmcta_image_option.eq(1).attr('checked')=='checked' || fmcta_image_option.eq(2).attr('checked')=='checked'){
+        if (fmcta_image_option.eq(1).attr('checked') == 'checked' || fmcta_image_option.eq(2).attr('checked') == 'checked') {
             fmcta_image_uploader_label.hide();
         }
-        if(fmcta_image_option.eq(0).attr('checked')=='checked'){
+        if (fmcta_image_option.eq(0).attr('checked') == 'checked') {
             fmcta_image_uploader_label.show();
         }
 
-        fmcta_image_option.eq(0).on('click',function(){
+        fmcta_image_option.eq(0).on('click', function () {
             fmcta_image_uploader_label.show();
         });
-        fmcta_image_option.eq(1).on('click',function(){
+        fmcta_image_option.eq(1).on('click', function () {
             fmcta_image_uploader_label.hide();
         });
-        fmcta_image_option.eq(2).on('click',function(){
+        fmcta_image_option.eq(2).on('click', function () {
             fmcta_image_uploader_label.hide();
         });
-
 
 
         fmcta_heading_title_option.on("change", function () {
-            currentSelection = $("#"+fm_id+"-feature option:selected").text();
+            currentSelection = $("#" + fm_id + "-feature option:selected").text();
         });
 
         defaultTitle.on("click", function () {
@@ -186,6 +188,39 @@ function fm_listen(fm_id,hide){
             fmcta_heading_title_content.hide();
         });
 
+        /*-- Step 4 Button Options --*/
+
+        // Hide button image uploader unless upload is selected
+        if (fmcta_button_option.val() == "upload") {
+            fmcta_button_uploader.show();
+            fmcta_button_title_field.hide();
+        } else {
+            fmcta_button_uploader.hide();
+        }
+        fmcta_button_option.on("change", function () {
+            console.log("Changed to: " + $(this).val());
+            if ($(this).val() == "upload") {
+                fmcta_button_uploader.show();
+                fmcta_button_title_field.hide();
+            }
+            else {
+
+                // If the none is selected hide title and uploader fields
+                if ($(this).val() == "none" ){
+                    fmcta_button_title_field.hide();
+                    fmcta_button_uploader.hide();
+                }
+                // If it's not selected, show the title field, but hide the uploader field
+                else{
+                    fmcta_button_title_field.show();
+                    fmcta_button_uploader.hide();
+                }
+            }
+
+            // If none is selected, hide the text field too
+
+        });
+
 
         /*--Toggle Custom Body Options--*/
         //Hide body if the "excerpt" button is checked
@@ -214,7 +249,6 @@ function fm_listen(fm_id,hide){
         fmcta_description_option.eq(2).on('click', function () {
             fmcta_description_content.hide();
         });
-
 
 
         /*--Toggle Link Title Options--*/
@@ -252,29 +286,29 @@ function fm_listen(fm_id,hide){
  * fm_cta_menu_click
  * This function is used to handle the display of widget settings.
  */
-function fm_cta_menu_click(){
+function fm_cta_menu_click() {
 
-    console.log('fm_cta_menu_click function launched '+ Date.now());
+    console.log('fm_cta_menu_click function launched ' + Date.now());
 
     //Menu Clicks
-    jQuery(function($){
-        $('.fm-option-1').on('click',function(){
+    jQuery(function ($) {
+        $('.fm-option-1').on('click', function () {
             $('.fm-step-1-options').slideToggle();
         });
 
-        $('.fm-option-2').on('click',function(){
+        $('.fm-option-2').on('click', function () {
             $('.fm-step-2-options').slideToggle();
         });
 
-        $('.fm-option-3').on('click',function(){
+        $('.fm-option-3').on('click', function () {
             $('.fm-step-3-options').slideToggle();
         });
 
-        $('.fm-option-4').on('click',function(){
+        $('.fm-option-4').on('click', function () {
             $('.fm-step-4-options').slideToggle();
         });
 
-        $('.fm-option-advanced').on('click',function(){
+        $('.fm-option-advanced').on('click', function () {
             $('.fm-step-advanced-options').slideToggle();
         });
     });
@@ -284,25 +318,25 @@ function fm_cta_menu_click(){
  * fmcta_image_uploader
  * This function is used to upload custom images.
  */
-function fmcta_image_uploader(selector){
+function fmcta_image_uploader(selector) {
     console.log('fmcta_image_uploader launched for: ' + selector);
     var _custom_media = true,
         _orig_send_attachment = wp.media.editor.send.attachment;
 
-    jQuery("."+ selector + ' .button').click(function(e) {
+    jQuery("." + selector + ' .button').click(function (e) {
         console.log('click');
         var send_attachment_bkp = wp.media.editor.send.attachment;
         var button = jQuery(this);
         var id = button.attr('id').replace('upload', 'image_href');
-        console.log('Upload id: '+id);
+        console.log('Upload id: ' + id);
         _custom_media = true;
-        wp.media.editor.send.attachment = function(props, attachment){
-            if ( _custom_media ) {
-                jQuery("#"+id).val(attachment.url);
+        wp.media.editor.send.attachment = function (props, attachment) {
+            if (_custom_media) {
+                jQuery("#" + id).val(attachment.url);
                 console.log('sent');
             } else {
 
-                return _orig_send_attachment.apply( this, [props, attachment] );
+                return _orig_send_attachment.apply(this, [props, attachment]);
             }
         }
 
@@ -310,34 +344,34 @@ function fmcta_image_uploader(selector){
         return false;
     });
 
-    jQuery('.add_media').on('click', function(){
+    jQuery('.add_media').on('click', function () {
         _custom_media = false;
     });
 }
 
-function fmcta_get_ids(){
-    jQuery(function($){
+function fmcta_get_ids() {
+    jQuery(function ($) {
         //Gather all the Feature Me Widgets on the page
         var fm = $('.widget:contains("feature_me")');
 
         //Remove the first element found since the ID hasn't been set yet.
-        if(fm.length > 1){
-            fm.splice(0,1);
+        if (fm.length > 1) {
+            fm.splice(0, 1);
         }
-        else{
+        else {
             //do nothing because there are no active feature me widgets
         }
 
         //Variable to hold the ID's of the elements on the page.
         var fm_ids = new Array(); //set up array to hold the ID's
 
-        for(var i = 0; i < fm.length; i++){
+        for (var i = 0; i < fm.length; i++) {
             fm_ids[i] = fm.eq(i).attr('id');
         }
-        console.log('fm_ids: '+fm_ids);
+        console.log('fm_ids: ' + fm_ids);
         //creates listening events for each Feature Me Widget on the page.
-        for(var i = 0; i<fm_ids.length; i++){
-            fm_ids[i] = fm_ids[i].replace(/widget-[0-9]*_/,'widget-');
+        for (var i = 0; i < fm_ids.length; i++) {
+            fm_ids[i] = fm_ids[i].replace(/widget-[0-9]*_/, 'widget-');
             fm_listen(fm_ids[i]);
         }
     });

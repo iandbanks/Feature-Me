@@ -184,7 +184,7 @@ class fmcta_widget extends WP_Widget {
 			$fmcta_feature_idd_id = $instance['fmcta_feature_id'];
 		}
 		//echo $instance variable for easier development
-		//echo '<pre>' . print_r( $instance, true ) . '</pre>';
+		echo '<pre>' . print_r( $instance, true ) . '</pre>';
 
 		echo $this->generateCSS(); //generate CSS to page
 		/**
@@ -565,92 +565,50 @@ class fmcta_widget extends WP_Widget {
 					Customize Your Button</h4>
 
 				<div class="fm-step-4-options">
-					<h4 class="title">CTA Button Title</h4>
-					<!--Link Title Options-->
 
-					<p><input type="text" name="<?php echo $this->get_field_name( 'fmcta_button_text' ); ?>"
-					          id="<?php echo $this->get_field_id( 'fmcta_button_text' ); ?>"
-					          value="<?php
-					          if ( isset( $instance['fmcta_button_text'] ) ) {
-						          echo esc_attr( $instance['fmcta_button_text'] );
-					          } ?>"
-					          placeholder="Read More!, Act Now!"
-					          style="width:100%;"/></p>
-					<!--/Link Title Options-->
+                    <h4 class="title">Choose a Button Type</h4>
 
-					<h4 class="title">Choose a Button Type</h4>
+                        <select name="<?php echo $this->get_field_name( 'fmcta_button_option' ); ?>" class="<?php echo $this->get_field_id(); ?>fmcta_button_option" style="width: 100%;">
+                            <option <?php if( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "text" ) { echo 'selected="selected"'; } ?> value="text">Text Link</option>
+                            <option <?php if( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "css" ) { echo 'selected="selected"'; } ?> value="css">CSS Button</option>
+                            <option <?php if( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "uploadt" ) { echo 'selected="selected"'; } ?> value="upload">Upload Button Image</option>
+                            <option <?php if( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "none" ) { echo 'selected="selected"'; } ?> value="none">No Button</option>
+                        </select>
 
-					<p>
-						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_button_type' ); ?>"
-						       value="none"
-						       id="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>_none"
-						       class="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>"
-							<?php
-							if ( isset( $instance['fmcta_button_type'] ) ) {
-								if ( $instance['fmcta_button_type'] == "none" ) {
-									echo 'checked = "checked"';
-								}
-							} ?>  />
-						<label for="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>_none">None
-							<small>Useful for image-only CTA's!</small>
-						</label>
-					</p>
-					<p>
-						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_button_type' ); ?>"
-						       value="text"
-						       id="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>_text"
-						       class="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>"
-							<?php
-							if ( isset( $instance['fmcta_button_type'] ) ) {
-								if ( $instance['fmcta_button_type'] == "text" ) {
-									echo 'checked = "checked"';
-								}
-							} ?>  />
-						<label for="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>_text">Text</label>
-					</p>
 
-					<p>
-						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_button_type' ); ?>"
-						       value="css"
-						       id="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>_css"
-						       class="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>"
-							<?php
-							if ( isset( $instance['fmcta_button_type'] ) ) {
-								if ( $instance['fmcta_button_type'] == "css" ) {
-									echo 'checked = "checked"';
-								}
-							} ?>  />
-						<label for="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>_css">CSS</label>
-					</p>
 
-					<p>
-						<input type="radio" name="<?php echo $this->get_field_name( 'fmcta_button_type' ); ?>"
-						       value="upload"
-						       id="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>_upload"
-						       class="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>"
-							<?php
-							if ( isset( $instance['fmcta_button_type'] ) ) {
-								if ( $instance['fmcta_button_type'] == "upload" ) {
-									echo 'checked = "checked"';
-								}
-							} ?>  />
-						<label for="<?php echo $this->get_field_id( 'fmcta_button_type' ); ?>_upload">Upload a Button
-							Image</label>
+                    <div class="fmcta_button_uploader <?php echo $this->get_field_id( 'fmcta_button_uploader' ); ?>">
+                        <p>
+                            <input type="text" name="<?php echo $this->get_field_name( 'fmcta_button_image_uri' ); ?>"
+                                   id="<?php echo $this->get_field_id( 'fmcta_button_image_uri' ) ?>"
+                                   class="<?php echo $this->get_field_id( 'fmcta_button_image_uri' ) ?> fmcta_button_image_uri"
+                                   value="<?php
+                                   if ( isset ( $instance['fmcta_button_image_uri'] ) ) {
+                                       echo $instance['fmcta_button_image_uri'];
+                                   } ?>"
+                                   placeholder="Paste URI or Click &rarr;"/>
+                            <input class="button fmcta_upload <?php echo $this->get_field_id( 'fmcta_upload' ); ?>"
+                                   name="<?php echo $this->get_field_name( 'fmcta_upload' ); ?>"
+                                   id="<?php echo $this->get_field_id( 'fmcta_upload' ) ?>" value="Upload"/>
+                        </p>
+                    </div>
 
-					<div class="fmcta_button_uploader <?php echo $this->get_field_id( 'fmcta_button_uploader' ); ?>">
-						<input type="text" name="<?php echo $this->get_field_name( 'fmcta_button_image_uri' ); ?>"
-						       id="<?php echo $this->get_field_id( 'fmcta_button_image_uri' ) ?>"
-						       class="<?php echo $this->get_field_id( 'fmcta_button_image_uri' ) ?> fmcta_button_image_uri"
-						       value="<?php
-						       if ( isset ( $instance['fmcta_button_image_uri'] ) ) {
-							       echo $instance['fmcta_button_image_uri'];
-						       } ?>"
-						       placeholder="Paste URI or Click &rarr;"/>
-						<input class="button fmcta_upload <?php echo $this->get_field_id( 'fmcta_upload' ); ?>"
-						       name="<?php echo $this->get_field_name( 'fmcta_upload' ); ?>"
-						       id="<?php echo $this->get_field_id( 'fmcta_upload' ) ?>" value="Upload"/>
-					</div>
-					</p>
+                    <!-- Button Title -->
+                    <div class="<?php echo $this->get_field_id();?>fmcta_button_title_field">
+                        <h4 class="title">CTA Button Title</h4>
+
+
+                        <p><input type="text" name="<?php echo $this->get_field_name( 'fmcta_button_text' ); ?>"
+                                  id="<?php echo $this->get_field_id( 'fmcta_button_text' ); ?>"
+                                  value="<?php
+                                  if ( isset( $instance['fmcta_button_text'] ) ) {
+                                      echo esc_attr( $instance['fmcta_button_text'] );
+                                  } ?>"
+                                  placeholder="Read More!, Act Now!"
+                                  style="width:100%;"/></p>
+                    </div>
+                    <!-- END Button Title -->
+
 
 				</div>
 				<!--/.fm-step-4-options-->
@@ -1012,8 +970,8 @@ EOD;
 	public function fmcta_render_button( $instance ) {
 
 		//If the user doesn't want to display the button, stop here.
-		if ( isset( $instance['fmcta_button_type'] ) ) {
-			if ( $instance['fmcta_button_type'] == "none" || $instance['fmcta_button_text'] == "" ) {
+		if ( isset( $instance['fmcta_button_option'] ) ) {
+			if ( $instance['fmcta_button_option'] == "none" || $instance['fmcta_button_text'] == "" ) {
 				return;
 			}
 		}
@@ -1033,13 +991,13 @@ EOD;
 		}
 
 		//Get the appropriate button type.
-		if ( isset( $instance['fmcta_button_type'] ) && $instance['fmcta_button_type'] == "text" ) {
+		if ( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "text" ) {
 			$class .= " fmcta-text-only";
 			$button_content = $button_text;
-		} else if ( isset( $instance['fmcta_button_type'] ) && $instance['fmcta_button_type'] == "css" ) {
+		} else if ( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "css" ) {
 			$class .= " fmcta-button";
 			$button_content = $button_text;
-		} else if ( isset( $instance['fmcta_button_type'] ) && $instance['fmcta_button_type'] == "upload" ) {
+		} else if ( isset( $instance['fmcta_button_option'] ) && $instance['fmcta_button_option'] == "upload" ) {
 			$button_content = "<img src='$button_image' alt='$button_text' />";
 		}
 
