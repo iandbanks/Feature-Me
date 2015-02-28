@@ -252,51 +252,43 @@ class fmcta_widget extends WP_Widget {
 						        class="feature-me-select"
 						        style="width:100%;" id="<?php echo $this->get_field_id( 'fmcta_feature_id' ) ?>">
 
+                            <?php
+                            // Get a list of post types to execute queries for
+                            $post_types = get_post_types( array(
+                                    'public' => true, //only show public post types
+                                )
+                            );
 
+                            unset($post_types['attachment']);
 
+                            sort($post_types); // Sort the post types alphabetically
 
-							<optgroup label="Pages">
-								<?php
+                            // Run foreach and wp_query inside each to output correct options/groups
 
-								//PAGES
+                            foreach($post_types as $type ){
+                                // Set the optgroup for ease of use
+                                echo '<optgroup label="'. strtoupper( $type ) . '">';
 
-								$fmcta_feature_id_list_pages = new WP_QUERY( array(
-									'posts_per_page' => '-1',
-									'orderby'        => 'title',
-									'order'          => 'ASC',
-									'post_type'      => 'page'
-								) );
-								while ( $fmcta_feature_id_list_pages->have_posts() ): $fmcta_feature_id_list_pages->the_post();
+                                // Initiate WP_Query
+                                $fmcta_feature_id_list_types = new WP_QUERY( array(
+                                    'posts_per_page' => '-1',
+                                    'orderby'        => 'title',
+                                    'order'          => 'ASC',
+                                    'post_type'      => $type
+                                ) );
+                                while ( $fmcta_feature_id_list_types->have_posts() ): $fmcta_feature_id_list_types->the_post();
                                     $post_id = $post->ID;
-									?>
+                                    ?>
 
-									<option <?php if( isset( $instance['fmcta_feature_id'] ) && $instance['fmcta_feature_id'] == $post_id ) { echo 'selected="selected"'; }?> value="<?php echo the_ID(); ?>"><?php echo the_title(); ?></option>
+                                    <option <?php if( isset( $instance['fmcta_feature_id'] ) && $instance['fmcta_feature_id'] == $post_id ) { echo 'selected="selected"'; }?> value="<?php echo the_ID(); ?>"><?php echo the_title(); ?></option>
 
-								<?php endwhile;
-								wp_reset_query(); ?>
-							</optgroup>
-
-							<optgroup label="Posts">
-								<?php
-
-								//POSTS
-
-								$fmcta_feature_id_list_posts = new WP_QUERY( array(
-									'posts_per_page' => '-1',
-									'orderby'        => 'title',
-									'order'          => 'ASC',
-									'post_type'      => 'post'
-								) );
-
-								while ( $fmcta_feature_id_list_posts->have_posts() ): $fmcta_feature_id_list_posts->the_post();
-                                    $post_id = $post->ID;
-									?>
-
-									<option <?php if( isset($instance['fmcta_feature_id'] ) && $instance['fmcta_feature_id'] == $post_id  ) { echo 'selected="selected"'; }?> value="<?php echo the_ID(); ?>"><?php echo the_title(); ?></option>
-
-								<?php endwhile;
-								wp_reset_query(); ?>
-							</optgroup>
+                                <?php endwhile;
+                                wp_reset_query();
+                                
+                                // Close optgroup
+                                echo '</optgroup>';
+                            }
+                            ?>
 						</select>
 					</p>
 
