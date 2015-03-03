@@ -588,9 +588,8 @@ class fmcta_widget extends WP_Widget
 
                 <div class="fm-step-5-options <?php echo $this->get_field_id('fm-step-5-options'); ?>">
 
-                    <h4 class="title">Order CTA Elements</h4>
-
-                    <p>Drag and Drop the oder that you want to display the CTA</p>
+                    <p><label for="<?php echo $this->get_field_id('fmcta_element_order') ?>"><strong class="description">Order CTA Elements</strong></label><br/>
+                    Drag and Drop the oder that you want to display the CTA</p>
                     <ul id="<?php echo $this->get_field_id('fmcta_element_order'); ?>"
                         class="<?php echo $this->get_field_id('fmcta_element_order'); ?> fmcta_sortable">
                         <li class="ui-state-default fmcta_order_<?php if (isset ($instance['fmcta_element_order'])) {
@@ -601,7 +600,7 @@ class fmcta_widget extends WP_Widget
                             } else {
                                 echo "Title";
                             } ?>
-                            <input type="hidden" name="<?php echo $this->get_field_name('fmcta_element_order') ?>[]"
+                            <input type="hidden" name="<?php echo $this->get_field_name('fmcta_element_order') ?>[]" id="<?php echo $this->get_field_id('fmcta_element_order') ?>"
                                    value="<?php if (isset($instance['fmcta_element_order'])) {
                                        echo $instance['fmcta_element_order'][0];
                                    } else {

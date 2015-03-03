@@ -1,5 +1,10 @@
 /** Styles for the Admin Widget **/
-
+.fm_widget{
+  strong.description{
+    margin-left: 0;
+    padding-left:0 !important;
+  }
+}
 .fm_id {
   display: none;
 }
