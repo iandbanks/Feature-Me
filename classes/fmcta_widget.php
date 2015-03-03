@@ -433,8 +433,9 @@ class fmcta_widget extends WP_Widget
                     <div class="divide">&nbsp;</div>
 
                     <div class="<?php echo $this->get_field_id('fmcta_heading_link_option'); ?>">
-                        <h4 class="title">Link the CTA Title? </h4>
-                        <select name="<?php echo $this->get_field_name('fmcta_heading_link_option'); ?>">
+                        <p>
+                        <label for="<?php echo $this->get_field_id('fmcta_heading_link_option'); ?>"><strong class="description">Link the CTA Title?</strong></label><br/>
+                        <select name="<?php echo $this->get_field_name('fmcta_heading_link_option'); ?>" id="<?php echo $this->get_field_id('fmcta_heading_link_option'); ?>" style="width:100%;">
                             <option <?php
                             if (isset($instance['fmcta_heading_link_option'])) {
                                 if ($instance['fmcta_heading_link_option'] == true) {
