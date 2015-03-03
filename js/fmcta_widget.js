@@ -58,6 +58,7 @@ function fm_listen(fm_id, hide) {
         var fmcta_heading_title_option = $("." + fm_id + "-fmcta_heading_title_option"); //title options
         var fmcta_heading_title_option_label = $("." + fm_id + "-fmcta_heading_title_option_label"); //title options label
         var fmcta_heading_title_content = $("#" + fm_id + "-fmcta_heading_title_content"); //title content
+        var fmcta_heading_custom_label = $("." + fm_id + "-fmcta_heading_custom_label"); //title content
         var fmcta_description_option = $("." + fm_id + "-fmcta_description_option"); //description options
         var fmcta_description_option_label = $("." + fm_id + "-fmcta_description_option_label"); //description options label
         var fmcta_description_content = $("." + fm_id + "-fmcta_description_content"); //description content
@@ -126,7 +127,7 @@ function fm_listen(fm_id, hide) {
             fmcta_image_uploader_label.hide();
         }
         else{
-            fmcta_image_tip.hide()
+            fmcta_image_tip.hide();
             fmcta_image_uploader_label.hide();
         }
 
@@ -146,10 +147,7 @@ function fm_listen(fm_id, hide) {
             }
         });
 
-
-        fmcta_heading_title_option.on("change", function () {
-            currentSelection = $("#" + fm_id + "-feature option:selected").text();
-        });
+        // @todo look into whether this is needed anymore or not
 
         defaultTitle.on("click", function () {
             if (defaultTitle.attr("checked")) {
@@ -157,34 +155,30 @@ function fm_listen(fm_id, hide) {
             }
         });
 
+
+
         /*--Toggle Heading Title Options--*/
-        //Hide custom title if the "default" is checked
-        if (fmcta_heading_title_option.eq(0).attr('checked') == "checked") {
-            fmcta_heading_title_content.show();
+
+        if(fmcta_heading_title_option.val() == "custom"){
+            fmcta_heading_custom_label.show();
+            console.log("Custom Heading Title");
         }
-        //Hide custom title if "none" is checked
-        if (fmcta_heading_title_option.eq(1).attr('checked') == "checked") {
-            fmcta_heading_title_content.hide();
-        }
-        //Show body if the "custom" button is checked
-        if (fmcta_heading_title_option.eq(2).attr('checked') == "checked") {
-            fmcta_heading_title_content.hide();
+        else{
+            fmcta_heading_custom_label.hide();
+            console.log("NOT a Custom Heading Title");
         }
 
-        //Hide custom title when "default" is clicked
-        fmcta_heading_title_option.eq(0).on('click', function () {
-            //console.log('first option');
-            fmcta_heading_title_content.show();
-        });
-        //Hide custom title if "none" is clicked
-        fmcta_heading_title_option.eq(1).on('click', function () {
-            //console.log('second option');
-            fmcta_heading_title_content.hide();
-        });
-        //Show custom title when "custom" is clicked
-        fmcta_heading_title_option.eq(2).on('click', function () {
-            //console.log('third option');
-            fmcta_heading_title_content.hide();
+        fmcta_heading_title_option.on("change",function(){
+            if($(this).val() == "custom"){
+                fmcta_heading_custom_label.show();
+                console.log("Custom Heading Title");
+            }
+            else{
+                fmcta_heading_custom_label.hide();
+                console.log("NOT a Custom Heading Title");
+            }
+
+            currentSelection = $("#" + fm_id + "-feature option:selected").text();
         });
 
         /*-- Step 4 Button Options --*/

@@ -387,71 +387,38 @@ class fmcta_widget extends WP_Widget
 
             <div class="fm-step-3">
 
-                <h4 class="title fm-option-title fm-arrow <?php echo $this->get_field_id('fm-option-3'); ?>">Step 3:
-                    Customize
-                    Your Content
-                </h4>
+                <h4 class="title fm-option-title fm-arrow <?php echo $this->get_field_id('fm-option-3'); ?>">Step 3: Customize Your Content</h4>
 
                 <div class="fm-step-3-options <?php echo $this->get_field_id('fm-step-3-options'); ?>">
-                    <h4 class="title">CTA Title</h4>
-
                     <p><!--Use a Custom Title-->
-                    <span class="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>_label">
-                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_option'); ?>"
-                           value="custom"
-                           class="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>"
-                           id="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>_1" <?php
-                    if (isset ($instance['fmcta_heading_title_option'])) {
-                        if ($instance['fmcta_heading_title_option'] == "custom" || $instance['fmcta_heading_title_option'] == "") {
-                            echo 'checked="checked"';
-                        }
-                    } else {
-                        echo 'checked="checked"';
-                    } ?>  /> <!-- End Radio Button -->
-
-                    <label for="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>_1">Custom Title
-                        <small>Recommended</small>
-                    </label></span>
-                        <!--/Custom Title-->
-                        <br/>
-                    <span class="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>_label">
-
-                    <!--Page/Post Title-->
-
-
-	                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_option'); ?>"
-                               value="post"
-                               class="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>"
-                               id="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>_2" <?php
-                        if (isset ($instance['fmcta_heading_title_option'])) {
-                            if ($instance['fmcta_heading_title_option'] == "post") {
-                                echo 'checked="checked"';
-                            }
-                        } ?>  />
-                    <label for="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>_2">Post/Page
-                        Title</label>
-                        </span>
-                        <br/>
-                    <span class="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>_label">
-
-                    <!--No Title-->
-                    <input type="radio" name="<?php echo $this->get_field_name('fmcta_heading_title_option'); ?>"
-                           value="none"
-                           class="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>"
-                           id="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>_3" <?php
-                    if (isset($instance['fmcta_heading_title_option'])) {
-                        if ($instance['fmcta_heading_title_option'] == "none") {
-                            echo 'checked="checked"';
-                        }
-                    } ?>  />
-                    <label for="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>_3">Hide Title</label>
-                        </span>
-                        <!--/No Title-->
+                        <label for="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>"><strong class="description">Choose a Call to Action Title</strong></label><br/>
+                        <select name="<?php echo $this->get_field_name('fmcta_heading_title_option');?>" id="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>" style="width:100%;" class="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>" >
+                            <option <?php if (isset ($instance['fmcta_heading_title_option'])) {
+                                if ($instance['fmcta_heading_title_option'] == "custom" ) {
+                                    echo 'selected="selected"';
+                                }
+                            } else {
+                                echo 'selected="selected"';
+                            } ?> value="custom">Custom Title</option>
+                            <option <?php if (isset ($instance['fmcta_heading_title_option'])) {
+                                if ($instance['fmcta_heading_title_option'] == "post" ) {
+                                    echo 'selected="selected"';
+                                }
+                            }?> value="post">Page Title</option>
+                            <option <?php if (isset ($instance['fmcta_heading_title_option'])) {
+                                if ($instance['fmcta_heading_title_option'] == "none" ) {
+                                    echo 'selected="selected"';
+                                }
+                            } ?> value="none">None</option>
+                        </select>
                     </p>
 
                     <!--Custom Title Field-->
-                    <div id="<?php echo $this->get_field_id('fmcta_heading_title_content'); ?>">
-                        <p><input type="text" placeholder="Enter an Attention Grabbing title!" class="<?php echo
+                    <div class="<?php echo $this->get_field_id('fmcta_heading_custom_label'); ?>">
+                        <p><label for="<?php echo
+                            $this->get_field_id('fmcta_heading_title_content'); ?>"><strong class="description">Enter a Catchy Title</strong></label><br/>
+                            <input type="text" placeholder="Enter an Attention Grabbing title!" class="<?php echo
+                            $this->get_field_id('fmcta_heading_title_content'); ?>" id="<?php echo
                             $this->get_field_id('fmcta_heading_title_content'); ?>"
                                   name="<?php echo $this->get_field_name('fmcta_heading_title_content'); ?>"
                                   value="<?php
