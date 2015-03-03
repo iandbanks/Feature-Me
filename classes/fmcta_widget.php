@@ -651,11 +651,10 @@ class fmcta_widget extends WP_Widget
 
                     <div class="divide">&nbsp;</div>
 
-                    <h4 class="title">Add Custom CSS Class to Widget</h4>
 
                     <p>
-                        <small>You can add a CSS class to add custom styling</small>
-                        <input type="text" name="<?php echo $this->get_field_name('fmcta_class'); ?>"
+                        <label for="<?php echo $this->get_field_id('fmcta_class'); ?>"><strong class="description">Add a custom CSS class to widget</strong></label><br/>
+                        <input type="text" name="<?php echo $this->get_field_name('fmcta_class'); ?>" id="<?php echo $this->get_field_id('fmcta_class'); ?>"
                                value="<?php if (isset ($instance['fmcta_class'])) {
                                    echo esc_attr($instance['fmcta_class']);
                                } ?>" style="width:100%;"/>
