@@ -78,3 +78,23 @@ a img {
 .ui-state-highlight {
   border: 1px dashed orange;
   height: 2em; }
+
+.fmcta-tip {
+  font-style: italic;
+  vertical-align: middle;
+  color: #76c885;
+  margin: 10px 0 0 0; }
+  .fmcta-tip:before {
+    content: "\f339";
+    font-family: 'Dashicons', sans-serif;
+    font-size: 12px;
+    vertical-align: middle;
+    margin-right: 5px;
+    padding: 5px;
+    border-right: 1px solid #9bd6a6;
+    font-style: normal;
+    border-radius: 50%;
+    color: #fff;
+    background: #9bd6a6; }
+  .fmcta-tip.tip-image {
+    display: none; }

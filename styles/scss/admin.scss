@@ -100,3 +100,28 @@ a img {
   border: 1px dashed orange;
   height: 2em;
 }
+
+.fmcta-tip{
+  font-style: italic;
+  vertical-align: middle;
+  color: lighten(#52B965, 10);
+  margin:10px 0 0 0;
+
+  &:before{
+    content: "\f339";
+    font-family: 'Dashicons', sans-serif;
+    font-size: 12px;
+    vertical-align: middle;
+    margin-right: 5px;
+    padding: 5px;
+    border-right: 1px solid lighten(#52B965, 20);
+    font-style: normal;
+    border-radius: 50%;
+    color: #fff;
+    background: lighten(#52B965, 20);
+  }
+
+  &.tip-image{
+    display:none;
+  }
+}

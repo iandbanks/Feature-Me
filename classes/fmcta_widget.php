@@ -328,66 +328,38 @@ class fmcta_widget extends WP_Widget
             <div class="fm-step-2">
 
                 <h4 class="title fm-option-title fm-arrow <?php echo $this->get_field_id('fm-option-2'); ?>">Step 2:
-                    Choose an
-                    Image
-                </h4>
+                    Choose an Image</h4>
 
                 <div class="fm-step-2-options <?php echo $this->get_field_id('fm-step-2-options'); ?>">
-                    <p class="description" style="margin-top:15px; padding:0;">What image do you want to use in this
-                        Call To
-                        Action?</p>
+                    <p class="fmcta-tip tip-image <?php echo $this->get_field_id("tip-image"); ?>">CTA's with images typically have higher conversion rates.</p>
 
                     <p>
-                     <span class="<?php echo $this->get_field_id('fmcta_image_option'); ?>_label"><input type="radio"
-                                                                                                         id="<?php echo $this->get_field_id('fmcta_image_option'); ?>_1"
-                                                                                                         class="<?php echo $this->get_field_id('fmcta_image_option'); ?>"
-                                                                                                         name="<?php echo $this->get_field_name('fmcta_image_option'); ?>"
-                                                                                                         value="upload" <?php
-                         if (isset($instance['fmcta_image_option'])) {
-                             if ($instance['fmcta_image_option'] == "upload") {
-                                 echo 'checked="checked"';
-                             }
-                         } else {
-                             echo 'checked = "checked"';
-                         } ?>  />
+                        <label for="<?php echo $this->get_field_id('fmcta_image_option'); ?>"><strong
+                                class="description">What image do you want to use in this Call To
+                                Action?</strong></label><br/>
 
-                        <label
-                            for="<?php echo $this->get_field_id('fmcta_image_option'); ?>_1">Upload an image
-                            <small> (recommended)</small>
-                        </label>
-                         </span>
+                        <select class="<?php echo $this->get_field_id('fmcta_image_option'); ?>"
+                                name="<?php echo $this->get_field_name('fmcta_image_option'); ?>" style="width:100%;">
+                            <option <?php if (isset($instance['fmcta_image_option'])) {
+                                if ($instance['fmcta_image_option'] == "upload") {
+                                    echo 'selected="selected"';
+                                }
+                            } else {
+                                echo 'selected="selected"';
+                            } ?> value="upload">Upload an Image</option>
+                            <option <?php if (isset($instance['fmcta_image_option'])) {
+                                if ($instance['fmcta_image_option'] == "feature") {
+                                    echo 'selected="selected"';
+                                }
+                            } ?> value="feature">Use Featured Image</option>
+                            <option <?php if (isset($instance['fmcta_image_option'])) {
+                                if ($instance['fmcta_image_option'] == "none") {
+                                    echo 'selected="selected"';
+                                }
+                            }?> value="none">Don't Use Image</option>
+                        </select>
 
-                    <span class="<?php echo $this->get_field_id('fmcta_image_option'); ?>_label"><br/>
-
-                    <input type="radio" id="<?php echo $this->get_field_id('fmcta_image_option'); ?>_2"
-                           class="<?php echo $this->get_field_id('fmcta_image_option'); ?>"
-                           name="<?php echo $this->get_field_name('fmcta_image_option'); ?>"
-                           value="feature" <?php
-                    if (isset($instance['fmcta_image_option'])) {
-                        if ($instance['fmcta_image_option'] == 'feature') {
-                            echo 'checked="checked"';
-                        }
-                    } ?>  />
-                    <label
-                        for="<?php echo $this->get_field_id('fmcta_image_option'); ?>_2">Use Page/Post Featured
-                        Image</label>
-                    </span>
-                     <span class="<?php echo $this->get_field_id('fmcta_image_option'); ?>_label">
-                    <br/>
-                    <input type="radio" id="<?php echo $this->get_field_id('fmcta_image_option'); ?>_3"
-                           class="<?php echo $this->get_field_id('fmcta_image_option'); ?>"
-                           name="<?php echo $this->get_field_name('fmcta_image_option'); ?>"
-                           value="none" <?php
-                    if (isset($instance['fmcta_image_option'])) {
-                        if ($instance['fmcta_image_option'] == 'none') {
-                            echo 'checked="checked"';
-                        }
-                    } ?>  />
-
-                        <label
-                            for="<?php echo $this->get_field_id('fmcta_image_option'); ?>_3">Off</label>
-                         </span>
-                    </p>
+                        </p>
                     <p class="fmcta_image_uploader <?php echo $this->get_field_id('fmcta_image_uploader'); ?>">
                         <input type="text" name="<?php echo $this->get_field_name('fmcta_image_href'); ?>"
                                id="<?php echo $this->get_field_id('fmcta_image_href') ?>"
@@ -397,8 +369,10 @@ class fmcta_widget extends WP_Widget
                                    echo $instance['fmcta_image_href'];
                                } else {
                                    echo '';
-                               } ?>" placeholder="Paste URI or Click &rarr;" style="width: 75%; vertical-align: middle;"/>
-                        <input type="button" class="button fmcta_upload <?php echo $this->get_field_id('fmcta_upload'); ?>"
+                               } ?>" placeholder="Paste URI or Click &rarr;"
+                               style="width: 75%; vertical-align: middle;"/>
+                        <input type="button"
+                               class="button fmcta_upload <?php echo $this->get_field_id('fmcta_upload'); ?>"
                                name="<?php echo $this->get_field_name('fmcta_upload'); ?>"
                                id="<?php echo $this->get_field_id('fmcta_upload') ?>" value="Upload"/>
                     </p>
@@ -844,10 +818,9 @@ class fmcta_widget extends WP_Widget
                 <?php
 
                 // Use HTTPS if on secure server
-                if ( isset( $_SERVER['HTTPS' ] ) ){
-                    $img_url = preg_replace('/http:/i','https:',$instance['fmcta_image_href'] );
-                }
-                else{
+                if (isset($_SERVER['HTTPS'])) {
+                    $img_url = preg_replace('/http:/i', 'https:', $instance['fmcta_image_href']);
+                } else {
                     $img_url = $instance['fmcta_image_href'];
                 }
                 ?>
@@ -855,7 +828,7 @@ class fmcta_widget extends WP_Widget
                 <img src="<?php echo $img_url; ?>" alt="<?php echo $instance['fmcta_heading_title_content']; ?>"/></a>
 
         <?php
-        } else if($instance['fmcta_image_option'] == "none"){
+        } else if ($instance['fmcta_image_option'] == "none") {
             // Don't output an image
         }
         echo '</div><!--/.fmcta_feature_id_image-->';
@@ -900,7 +873,7 @@ class fmcta_widget extends WP_Widget
         $button_image = (isset($instance['fmcta_button_image_uri'])) ? $instance['fmcta_button_image_uri'] : "";
 
         // Overwrite $button_image with HTTPS for image on secure site/page
-        if( isset( $_SERVER['HTTPS'] ) ){
+        if (isset($_SERVER['HTTPS'])) {
             $button_image = preg_replace('/http:/i', 'https:', $button_image);
         }
 

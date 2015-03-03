@@ -52,6 +52,7 @@ function fm_listen(fm_id, hide) {
         var fmcta_image_option_label = $("." + fm_id + "-fmcta_image_option_label");
         var fmcta_image_href = $("." + fm_id + "-fmcta_image_href");
         var fmcta_image_uploader_label = $("." + fm_id + "-fmcta_image_uploader");
+        var fmcta_image_tip = $("." + fm_id + "-tip-image");
 
         //Step 3 - Customize Content
         var fmcta_heading_title_option = $("." + fm_id + "-fmcta_heading_title_option"); //title options
@@ -65,6 +66,7 @@ function fm_listen(fm_id, hide) {
         var fmcta_button_option = $("." + fm_id + "-fmcta_button_option"); // Get the select menu for button options
         var fmcta_button_uploader = $("." + fm_id + "-fmcta_button_uploader"); // Get the button image uploader field
         var fmcta_button_title_field = $("." + fm_id + "-fmcta_button_title_field"); // The div containing the button title field
+
 
         var defaultTitle = $("#" + fm_id + "-defaultTitle");
         var type = $("." + fm_id + "-type");
@@ -114,28 +116,34 @@ function fm_listen(fm_id, hide) {
 
         /*--Toggle Image Options--*/
 
-        //Since external landing pages don't have featured images, hide image option for featured post selected.
-        if (fmcta_landing_option.eq(1).attr('checked') == 'checked') {
-            fmcta_image_option.eq(1).hide();
+        if (fmcta_image_option.val() == "upload"){
+            fmcta_image_uploader_label.show();
+            fmcta_image_tip.hide();
         }
-        if (fmcta_landing_option.eq(0).attr('checked') == 'checked') {
-            fmcta_image_option.eq(1).show();
-        }
-        if (fmcta_image_option.eq(1).attr('checked') == 'checked' || fmcta_image_option.eq(2).attr('checked') == 'checked') {
+        else if (fmcta_image_option.val() == "none"){
+            //show image tip recommending that the user use an image
+            fmcta_image_tip.show();
             fmcta_image_uploader_label.hide();
         }
-        if (fmcta_image_option.eq(0).attr('checked') == 'checked') {
-            fmcta_image_uploader_label.show();
+        else{
+            fmcta_image_tip.hide()
+            fmcta_image_uploader_label.hide();
         }
 
-        fmcta_image_option.eq(0).on('click', function () {
-            fmcta_image_uploader_label.show();
-        });
-        fmcta_image_option.eq(1).on('click', function () {
-            fmcta_image_uploader_label.hide();
-        });
-        fmcta_image_option.eq(2).on('click', function () {
-            fmcta_image_uploader_label.hide();
+        fmcta_image_option.on('change', function(){
+            if ($(this).val() == "upload"){
+                fmcta_image_uploader_label.show();
+                fmcta_image_tip.hide()
+            }
+            else if ($(this).val() == "none"){
+                //show image tip recommending that the user use an image
+                fmcta_image_tip.slideDown();
+                fmcta_image_uploader_label.hide();
+            }
+            else{
+                fmcta_image_uploader_label.hide();
+                fmcta_image_tip.hide();
+            }
         });
 
 
