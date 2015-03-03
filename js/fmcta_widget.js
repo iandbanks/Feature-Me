@@ -209,38 +209,22 @@ function fm_listen(fm_id, hide) {
                     fmcta_button_uploader.hide();
                 }
             }
-
-            // If none is selected, hide the text field too
-
         });
 
 
         /*--Toggle Custom Body Options--*/
-        //Hide body if the "excerpt" button is checked
-        if (fmcta_description_option.eq(0).attr('checked') == "checked") {
+        if(fmcta_description_option.val() == "custom"){
             fmcta_description_content.show();
-            //console.log('custom description');
-        }
-        if (fmcta_description_option.eq(1).attr('checked') == "checked") {
+        } else{
             fmcta_description_content.hide();
-            //console.log('excerpt description');
-        }
-        //Show body if the "custom" button is checked
-        if (fmcta_description_option.eq(2).attr('checked') == "checked") {
-            fmcta_description_content.hide();
-            //console.log('no description');
         }
 
-        //Hide body when "excerpt" button is clicked
-        fmcta_description_option.eq(0).on('click', function () {
-            fmcta_description_content.show();
-        });
-        fmcta_description_option.eq(1).on('click', function () {
-            fmcta_description_content.hide();
-        });
-        //Show body when "custom" button is clicked
-        fmcta_description_option.eq(2).on('click', function () {
-            fmcta_description_content.hide();
+        fmcta_description_option.on("change", function(){
+            if($(this).val() == "custom"){
+                fmcta_description_content.show();
+            } else{
+                fmcta_description_content.hide();
+            }
         });
 
 

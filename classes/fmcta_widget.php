@@ -391,7 +391,7 @@ class fmcta_widget extends WP_Widget
 
                 <div class="fm-step-3-options <?php echo $this->get_field_id('fm-step-3-options'); ?>">
                     <p><!--Use a Custom Title-->
-                        <label for="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>"><strong class="description">Choose a Call to Action Title</strong></label><br/>
+                        <label for="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>"><strong class="description">What kind of Call to Action title do you want to use?</strong></label><br/>
                         <select name="<?php echo $this->get_field_name('fmcta_heading_title_option');?>" id="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>" style="width:100%;" class="<?php echo $this->get_field_id('fmcta_heading_title_option'); ?>" >
                             <option <?php if (isset ($instance['fmcta_heading_title_option'])) {
                                 if ($instance['fmcta_heading_title_option'] == "custom" ) {
@@ -416,7 +416,7 @@ class fmcta_widget extends WP_Widget
                     <!--Custom Title Field-->
                     <div class="<?php echo $this->get_field_id('fmcta_heading_custom_label'); ?>">
                         <p><label for="<?php echo
-                            $this->get_field_id('fmcta_heading_title_content'); ?>"><strong class="description">Enter a Catchy Title</strong></label><br/>
+                            $this->get_field_id('fmcta_heading_title_content'); ?>"><strong class="description">Enter a catchy title</strong></label><br/>
                             <input type="text" placeholder="Enter an Attention Grabbing title!" class="<?php echo
                             $this->get_field_id('fmcta_heading_title_content'); ?>" id="<?php echo
                             $this->get_field_id('fmcta_heading_title_content'); ?>"
@@ -434,7 +434,7 @@ class fmcta_widget extends WP_Widget
 
                     <div class="<?php echo $this->get_field_id('fmcta_heading_link_option'); ?>">
                         <p>
-                        <label for="<?php echo $this->get_field_id('fmcta_heading_link_option'); ?>"><strong class="description">Link the CTA Title?</strong></label><br/>
+                        <label for="<?php echo $this->get_field_id('fmcta_heading_link_option'); ?>"><strong class="description">Link the title?</strong></label><br/>
                         <select name="<?php echo $this->get_field_name('fmcta_heading_link_option'); ?>" id="<?php echo $this->get_field_id('fmcta_heading_link_option'); ?>" style="width:100%;">
                             <option <?php
                             if (isset($instance['fmcta_heading_link_option'])) {
@@ -458,55 +458,32 @@ class fmcta_widget extends WP_Widget
 
                     <div class="divide">&nbsp;</div>
 
-                    <h4 class="title">Description</h4>
+
 
                     <p>
+                        <label for="<?php echo $this->get_field_id('fmcta_description_option'); ?>"><strong class="description">Choose a Description Option</strong></label><br/>
+                        <select name="<?php echo $this->get_field_name('fmcta_description_option'); ?>" id="<?php echo $this->get_field_id('fmcta_description_option'); ?>" class="<?php echo $this->get_field_id('fmcta_description_option'); ?>" style="width:100%;">
+                            <option <?php
+                            if (isset ($instance['fmcta_description_option'])) {
+                                if (esc_attr($instance['fmcta_description_option']) == 'custom') {
+                                    echo 'selected="selected"';
+                                } else{
+                                    echo 'selected="selected"';
+                                }
+                            } ?> value="custom">Custom Description</option>
+                            <option <?php if (isset ($instance['fmcta_description_option']) ) {
+                                if (esc_attr($instance['fmcta_description_option']) == 'excerpt') {
+                                    echo 'selected="selected"';
+                                }
+                            }?> value="excerpt">Page Excerpt</option>
+                            <option <?php
+                                if (isset ($instance['fmcta_description_option'])) {
+                                    if (esc_attr($instance['fmcta_description_option']) == 'none') {
+                                        echo 'selected="selected"';
+                                    }
+                                }?> value="none">No Description</option>
+                        </select>
                         <!--Custom Body-->
-                    <span class="<?php echo $this->get_field_id('fmcta_description_option'); ?>_label">
-                    <input type="radio" class="<?php echo $this->get_field_id('fmcta_description_option'); ?>"
-                           id="<?php echo $this->get_field_id('fmcta_description_option'); ?>_1" value="custom"
-                           name="<?php echo $this->get_field_name('fmcta_description_option'); ?>"
-                        <?php
-                        if (isset ($instance['fmcta_description_option'])) {
-                            if (esc_attr($instance['fmcta_description_option']) == 'custom' || esc_attr($instance['fmcta_description_option']) == '') {
-                                echo 'checked="checked"';
-                            }
-                        } ?>  />
-                    <label for="<?php echo $this->get_field_id('fmcta_description_option'); ?>_1">Custom</label>
-                        </span>
-                        <!--/Custom Body-->
-
-                        <!--Default Body-->
-                    <span class="<?php echo $this->get_field_id('fmcta_description_option'); ?>_label">
-                        <br/>
-                    <input type="radio" class="<?php echo $this->get_field_id('fmcta_description_option'); ?>"
-                           id="<?php echo $this->get_field_id('fmcta_description_option'); ?>_2" value="excerpt"
-                           name="<?php echo $this->get_field_name('fmcta_description_option'); ?>"
-                        <?php
-                        if (isset ($instance['fmcta_description_option'])) {
-                            if (esc_attr($instance['fmcta_description_option']) == 'excerpt') {
-                                echo 'checked="checked"';
-                            }
-                        } ?>  />
-                    <label for="<?php echo $this->get_field_id('fmcta_description_option'); ?>_2">Post/Page
-                        Except</label>
-                        </span>
-                        <!--/Default Body-->
-
-                        <!--No Body-->
-                    <span class="<?php echo $this->get_field_id('fmcta_description_option'); ?>_label"><br/>
-                    <input type="radio" class="<?php echo $this->get_field_id('fmcta_description_option'); ?>"
-                           id="<?php echo $this->get_field_id('fmcta_description_option'); ?>_3" value="none"
-                           name="<?php echo $this->get_field_name('fmcta_description_option'); ?>"
-                        <?php if (isset ($instance['fmcta_description_option'])) {
-                            if (esc_attr($instance['fmcta_description_option']) == 'none') {
-                                echo 'checked="checked"';
-                            }
-                        } ?>  />
-                    <label for="<?php echo $this->get_field_id('fmcta_description_option'); ?>_3">Hide</label>
-                    <!--/No Body-->
-                    &nbsp;
-
                     </p>
 
                     <div class="<?php echo $this->get_field_id('fmcta_description_content'); ?>">
