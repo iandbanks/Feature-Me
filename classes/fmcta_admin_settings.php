@@ -95,7 +95,7 @@ class fm_admin_settings {
 	 */
 	public function create_admin_page() {
 		// Set class property
-		$this->options = get_option( 'feature_me_settings' );
+		$this->options = get_option( 'fmcta_settings_settings' );
 		?>
 		<div class="wrap">
 			<h2>Feature Me Settings</h2>
@@ -105,7 +105,7 @@ class fm_admin_settings {
 			<form method="post" action="options.php">
 				<?php
 				// This prints out all hidden setting fields
-				settings_fields( 'feature_me_group' );
+				settings_fields( 'fmcta_settings_group' );
 				do_settings_sections( 'feature-me-admin' );
 				submit_button();
 				?>
@@ -118,25 +118,42 @@ class fm_admin_settings {
 	 * Register and add settings
 	 */
 	public function page_init() {
+
 		register_setting(
-			'feature_me_group', // Option group
-			'feature_me_settings', // Option name
+			'fmcta_settings_group', // Option group
+			'fmcta_settings_settings', // Option name
 			array( $this, 'sanitize' ) // Sanitize
 		);
 
+        /* General Settings */
+        add_settings_section(
+            'fmcta_settings_general', // ID
+            'Filter out Post Types', // css
+            array( $this, 'print_general_info' ), // Callback
+            'feature-me-admin' // Page
+        );
+
+        /* Style Settings */
 		add_settings_section(
-			'feature_me_settings', // ID
-			'Feature Me Settings', // css
+			'fmcta_settings_styles', // ID
+			'Feature Me Styles', // css
 			array( $this, 'print_section_info' ), // Callback
 			'feature-me-admin' // Page
 		);
 
 		add_settings_field(
+			'css_button',
+			'CSS Button',
+			array( $this, 'css_button' ),
+			'feature-me-admin',
+			'fmcta_settings_styles'
+		);
+        add_settings_field(
 			'css',
 			'CSS',
 			array( $this, 'css_callback' ),
 			'feature-me-admin',
-			'feature_me_settings'
+			'fmcta_settings_styles'
 		);
 	}
 
@@ -161,14 +178,29 @@ class fm_admin_settings {
 	/**
 	 * Print the Section text
 	 */
+	public function print_general_info() {
+		echo '<p class="description">Enter General Settings</p>';
+	}
+
+    /**
+	 * Print the Section text
+	 */
 	public function print_section_info() {
-		print 'Enter your settings below:';
+		echo '<p class="description">Enter Style Settings</p>';
 	}
 
 	/**
 	 * Get the settings option array and print one of its values
 	 */
-	public function css_callback() {
+	public function css_button() {
+		//printf(
+        ?>
+			<label for="fmcta-css-button-radius"><strong>CSS Button Radius</strong></label><br/>
+            <input type="text" id="fmcta-css-button-radius" name="fmcta_settings[css_button_radius]" />
+        <?php
+		//);
+	}
+    public function css_callback() {
 		printf(
 			'<textarea type="text" id="css" name="fmcta_settings[css]" style="%s" >%s</textarea>', 'width:50%; height:300px;',
 			isset( $this->options['css'] ) ? esc_attr( $this->options['css'] ) : $this->default_css
