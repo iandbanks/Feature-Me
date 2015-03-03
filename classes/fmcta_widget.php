@@ -510,31 +510,34 @@ class fmcta_widget extends WP_Widget
 
                 <div class="fm-step-4-options <?php echo $this->get_field_id('fm-step-4-options'); ?>">
 
-                    <h4 class="title">Choose a Button Type</h4>
+                    <p>
+                        <label for="<?php echo $this->get_field_id('fmcta_button_option'); ?>"><strong class="description">Choose a Button Type</strong></label><br/>
+                        <select name="<?php echo $this->get_field_name('fmcta_button_option'); ?>"
+                                class="<?php echo $this->get_field_id('fmcta_button_option'); ?>" id="<?php echo $this->get_field_id('fmcta_button_option'); ?>" style="width: 100%;">
+                            <option <?php if (isset($instance['fmcta_button_option']) && $instance['fmcta_button_option'] == "text") {
+                                echo 'selected="selected"';
+                            } ?> value="text">Text Link
+                            </option>
+                            <option <?php if (isset($instance['fmcta_button_option']) && $instance['fmcta_button_option'] == "css") {
+                                echo 'selected="selected"';
+                            } ?> value="css">CSS Button
+                            </option>
+                            <option <?php if (isset($instance['fmcta_button_option']) && $instance['fmcta_button_option'] == "uploadt") {
+                                echo 'selected="selected"';
+                            } ?> value="upload">Upload Button Image
+                            </option>
+                            <option <?php if (isset($instance['fmcta_button_option']) && $instance['fmcta_button_option'] == "none") {
+                                echo 'selected="selected"';
+                            } ?> value="none">No Button
+                            </option>
+                        </select>
+                    </p>
 
-                    <select name="<?php echo $this->get_field_name('fmcta_button_option'); ?>"
-                            class="<?php echo $this->get_field_id('fmcta_button_option'); ?>" style="width: 100%;">
-                        <option <?php if (isset($instance['fmcta_button_option']) && $instance['fmcta_button_option'] == "text") {
-                            echo 'selected="selected"';
-                        } ?> value="text">Text Link
-                        </option>
-                        <option <?php if (isset($instance['fmcta_button_option']) && $instance['fmcta_button_option'] == "css") {
-                            echo 'selected="selected"';
-                        } ?> value="css">CSS Button
-                        </option>
-                        <option <?php if (isset($instance['fmcta_button_option']) && $instance['fmcta_button_option'] == "uploadt") {
-                            echo 'selected="selected"';
-                        } ?> value="upload">Upload Button Image
-                        </option>
-                        <option <?php if (isset($instance['fmcta_button_option']) && $instance['fmcta_button_option'] == "none") {
-                            echo 'selected="selected"';
-                        } ?> value="none">No Button
-                        </option>
-                    </select>
 
 
                     <div class="fmcta_button_uploader <?php echo $this->get_field_id('fmcta_button_uploader'); ?>">
                         <p>
+                            <label for="<?php echo $this->get_field_id('fmcta_button_image_uri') ?>"><strong class="description">Upload a button image</strong></label><br/>
                             <input type="text" name="<?php echo $this->get_field_name('fmcta_button_image_uri'); ?>"
                                    id="<?php echo $this->get_field_id('fmcta_button_image_uri') ?>"
                                    class="<?php echo $this->get_field_id('fmcta_button_image_uri') ?> fmcta_button_image_uri"
@@ -551,17 +554,19 @@ class fmcta_widget extends WP_Widget
 
                     <!-- Button Title -->
                     <div class="<?php echo $this->get_field_id('fmcta_button_title_field'); ?>">
-                        <h4 class="title">CTA Button Title</h4>
 
 
-                        <p><input type="text" name="<?php echo $this->get_field_name('fmcta_button_text'); ?>"
+                        <p>
+                            <label for="<?php echo $this->get_field_id('fmcta_button_text'); ?>"><strong class="description">CTA Button Title</strong></label><br/>
+                            <input type="text" name="<?php echo $this->get_field_name('fmcta_button_text'); ?>"
                                   id="<?php echo $this->get_field_id('fmcta_button_text'); ?>"
                                   value="<?php
                                   if (isset($instance['fmcta_button_text'])) {
                                       echo esc_attr($instance['fmcta_button_text']);
                                   } ?>"
                                   placeholder="Read More!, Act Now!"
-                                  style="width:100%;"/></p>
+                                  style="width:100%;"/>
+                        </p>
                     </div>
                     <!-- END Button Title -->
 
