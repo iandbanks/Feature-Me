@@ -99,6 +99,8 @@ class fm_admin_settings {
 		?>
 		<div class="wrap">
 			<h2>Feature Me Settings</h2>
+            <?php //@todo Add settings options for each Feature Me element. Dropdowns, color pickers, etc. ?>
+            <p>This page is still in progress</p>
 
 			<form method="post" action="options.php">
 				<?php

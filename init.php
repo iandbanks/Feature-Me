@@ -52,7 +52,6 @@
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_setup.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_widget.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'classes/fmcta_admin_settings.php' );
-include_once( plugin_dir_path( __FILE__ ) . 'lib/settings.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'lib/fmcta_pointer.php' );
 include_once( plugin_dir_path( __FILE__ ) . 'lib/shortcodes.php' );
 
