@@ -195,8 +195,15 @@ class fm_admin_settings {
 	public function css_button() {
 		//printf(
         ?>
-			<label for="fmcta-css-button-radius"><strong>CSS Button Radius</strong></label><br/>
-            <input type="text" id="fmcta-css-button-radius" name="fmcta_settings[css_button_radius]" />
+        <section class="css-button-radius">
+            <h4><strong>Button Radius</strong></h4>
+            <p style="vertical-align: middle"><label for="fmcta-css-button-radius-top-left">Top Left</label>
+                <input type="text" id="fmcta-css-button-radius-top-left" name="fmcta_settings[css_button_radius-top-left]" /></p>
+            <p>
+                <label for="fmcta-css-button-radius-top-right">Top Right</label>
+                <input type="text" id="fmcta-css-button-radius-top-right" name="fmcta_settings[css_button_radius-top-right]" />
+            </p>
+        </section>
         <?php
 		//);
 	}
