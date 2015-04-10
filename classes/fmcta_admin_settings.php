@@ -76,6 +76,7 @@ class fm_admin_settings {
 		add_action( 'admin_init', array( $this, 'page_init' ) );
 	}
 
+
 	/**
 	 * Add options page
 	 */
@@ -124,14 +125,27 @@ class fm_admin_settings {
 			'fmcta_settings_settings', // Option name
 			array( $this, 'sanitize' ) // Sanitize
 		);
+        register_setting( 'fmcta_settings_group', 'fmcta_excluded_post_types' );
+        /*register_setting( 'myoption-group', 'some_other_option' );
+        register_setting( 'myoption-group', 'option_etc' );*/
 
         /* General Settings */
         add_settings_section(
             'fmcta_settings_general', // ID
-            'Filter out Post Types', // css
+            'Global Settings', // css
             array( $this, 'print_general_info' ), // Callback
             'feature-me-admin' // Page
         );
+
+        add_settings_field(
+            'fmcta_settings_post_types',
+            'Post Types',
+            array( $this, 'fmcta_settings_post_types' ),
+            'feature-me-admin',
+            'fmcta_settings_general'
+        );
+
+
 
         /* Style Settings */
 		add_settings_section(
@@ -179,7 +193,7 @@ class fm_admin_settings {
 	 * Print the Section text
 	 */
 	public function print_general_info() {
-		echo '<p class="description">Enter General Settings</p>';
+		echo '<p class="description">Change global settings for all Feature Me CTA\'s</p>';
 	}
 
     /**
@@ -197,8 +211,8 @@ class fm_admin_settings {
         ?>
         <section class="css-button-radius">
             <h4><strong>Button Radius</strong></h4>
-            <p style="vertical-align: middle"><label for="fmcta-css-button-radius-top-left">Top Left</label>
-                <input type="text" id="fmcta-css-button-radius-top-left" name="fmcta_settings[css_button_radius-top-left]" /></p>
+            <p style="vertical-align: middle; display:table-row;"><label for="fmcta-css-button-radius-top-left" style="display:table-cell; width: 100px;">Top Left</label>
+                <input type="text" id="fmcta-css-button-radius-top-left" style="display:table-cell;" name="fmcta_settings[css_button_radius-top-left]" /></p>
             <p>
                 <label for="fmcta-css-button-radius-top-right">Top Right</label>
                 <input type="text" id="fmcta-css-button-radius-top-right" name="fmcta_settings[css_button_radius-top-right]" />
@@ -213,4 +227,41 @@ class fm_admin_settings {
 			isset( $this->options['css'] ) ? esc_attr( $this->options['css'] ) : $this->default_css
 		);
 	}
+
+    /**
+     * fmcta_settings_post_types()
+     *
+     */
+    public function fmcta_settings_post_types() { ?>
+        <section class="post-types">
+            <h4><strong>Exclude post types from Feature Me</strong></h4>
+            <p class="description">By default all post types are included. If you don't want a post type to display in the feature me widget, select it here:</p>
+            <?php
+            $post_types = get_post_types(array(
+                    'public' => true, //only show public post types
+                )
+            );
+
+            sort($post_types); //sort alphabetically
+            ?>
+
+            <ul>
+            <?php
+            foreach( $post_types as $type ){
+                ?>
+                <li>
+                    <?php if(get_option('fmcta_excluded_post_types') ){
+                    ?>
+                    <input type="checkbox" name="fmcta_excluded_post_types[]" value="<?php echo $type ?>" id="exclude_<?php echo $type ?>" <?php if( in_array($type, get_option('fmcta_excluded_post_types') ) ){ echo 'checked="checked"'; } ?> > <label for="exclude_<?php echo $type ?>"><?php echo ucfirst( $type) ?></label></li>
+                    <?php
+                    } else{ ?>
+                    <input type="checkbox" name="fmcta_excluded_post_types[]" value="<?php echo $type ?>" id="exclude_<?php echo $type ?>" > <label for="exclude_<?php echo $type ?>"><?php echo ucfirst( $type) ?></label></li>
+
+                <?php }
+            }
+            ?>
+            </ul>
+        </section>
+        <?php
+    }
 }

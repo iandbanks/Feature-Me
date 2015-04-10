@@ -281,9 +281,16 @@ class fmcta_widget extends WP_Widget
                                 )
                             );
 
-                            unset($post_types['attachment']);
+                            // Check if there are post types we need to exclude and remove them from the array.
+                            if( get_option('fmcta_excluded_post_types') ){
+                                foreach( get_option('fmcta_excluded_post_types' ) as $exclude ){
+                                    unset($post_types[$exclude]);
+                                }
 
-                            sort($post_types); // Sort the post types alphabetically
+                            }
+
+                            // After we've filtered out all the post types we don't want, sort the array alphabetically.
+                            sort($post_types);
 
                             // Run foreach and wp_query inside each to output correct options/groups
 
