@@ -786,12 +786,12 @@ class fmcta_widget extends WP_Widget
     {
         /*--CTA Description--*/
 
-        if (isset($instance['fmcta_desctiption_option'])) {
+        if (isset($instance['fmcta_description_option'])) {
             switch ($instance['fmcta_description_option']) {
                 case 'excerpt':
                     $the_post = get_post($instance['fmcta_feature_id']);
                     setup_postdata($the_post);
-                    echo the_excerpt();
+                    echo get_the_excerpt();
                     break;
                 case 'custom':
                     echo "<p>" . $instance['fmcta_description_content'] . "</p>";
