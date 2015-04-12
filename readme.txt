@@ -3,8 +3,8 @@ Contributors: iandbanks
 Donate Link: http://www.phase-change.org/donate/
 Tags: feature, widget, featured-post, featured-page, feature-me, feature-widget,cta, call to action, featured post, feature me, call to action widget, feature me cta widget, feature me cta widget
 Requires at least: 3.7
-Tested up to: 3.9.2
-Stable tag: 1.2
+Tested up to: 4.2
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,9 @@ feature-me to get it back. I HIGHLY RECOMMEND copying the styles to your compute
 
 == Upgrade Notice ==
 
+= 2.0 =
+We've made Feature Me easier and more intuitive with massive improvements front and back!
+
 = 1.2 =
 More powerful and easier to use!
 
@@ -87,6 +90,17 @@ First version of the plugin.
 
 
 == Changelog ==
+
+= 2.0 =
+* New Feature: Fully WordPress 4.2!
+* New Feature: Settings slide to open making the widget easier to manage.
+* New Feature: Drag and drop the order you want your CTA to display.
+* New Feature: Select from all available post types. Great for highlighting products in your store!
+* New Feature: New settings section (Settings > Feature Me) allow for greater control over many global CTA settings.
+* New Feature: Added a custom CSS setting so your CSS won't be overwritten on future plugin updates.
+* Enhancement: Javascript on Widget admin page has been optimized.
+* Enhancement: More settings to allow better control of the widget.
+
 
 = 1.2 =
 * New Feature: Added Pointer messages to show where Feature Me is located.
