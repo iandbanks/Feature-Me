@@ -2,8 +2,8 @@
 Contributors: iandbanks
 Donate Link: http://www.phase-change.org/donate/
 Tags: feature, widget, featured-post, featured-page, feature-me, feature-widget,cta, call to action, featured post, feature me, call to action widget, feature me cta widget, feature me cta widget
-Requires at least: 3.7
-Tested up to: 4.2
+Requires at least: 4.0
+Tested up to: 4.4
 Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

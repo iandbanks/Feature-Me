@@ -5,7 +5,7 @@
  * Plugin URI: http://www.phasechangedigital.com/plugins/feature-me
  * Description: A powerful widget that allows you to easily create a call to action on your website.
  * Author: Phase Change Digital
- * Version: 2.0b
+ * Version: 2.0
  * Author URI: http://www.phasechangedigital.com
  * License: GNU General Public License, version 2
  * License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -35,6 +35,12 @@
  *
  *
  ********************************************************************************/
+
+/**
+ * @todo add setting to turn off Feature Me styles in the settings section
+ * @todo update readme docs
+ * @todo create video tutorial
+ */
 
 /********************************************************************************
  * 1.0 - Initialize Plugin
