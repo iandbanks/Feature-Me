@@ -281,6 +281,8 @@ class fmcta_widget extends WP_Widget
                                 )
                             );
 
+                            unset($post_types['attachement']); // Remove Attachments form the list.
+
                             // Check if there are post types we need to exclude and remove them from the array.
                             if( get_option('fmcta_excluded_post_types') ){
                                 foreach( get_option('fmcta_excluded_post_types' ) as $exclude ){
